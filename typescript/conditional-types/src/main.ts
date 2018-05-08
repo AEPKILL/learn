@@ -20,6 +20,12 @@ type Foo<T> = [T] extends any ? T[] : never;
  */
 type Bar = Foo<string | number>;
 
-type KX<key extends string> = {
-  [p in key]: number;
+type KX<key extends string> = { [p in key]: number };
+
+// 条件类型中的 []
+
+type T1<T extends any[]> = T extends Array<infer U> ? U[] : never;
+
+function Func1<T extends any[]>(array: T) {
+  return array;
 }
