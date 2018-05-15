@@ -1,0 +1,1 @@
+const xxx = <><div>xxxxxx</div></>
