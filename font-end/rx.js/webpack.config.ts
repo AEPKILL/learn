@@ -1,23 +1,24 @@
-const path = require('path');
-const htmlPlugin = require('html-webpack-plugin');
+import * as htmlPlugin from 'html-webpack-plugin';
+import { resolve } from 'path';
 
-module.exports = {
+export default {
   entry: './src/main.ts',
   resolve: {
     extensions: ['.js', '.ts']
   },
   devtool: 'inline-source-map',
+  mode: 'development',
   devServer: {
     port: 3000,
     open: true,
     compress: true
   },
   output: {
-    path: path.resolve('./dist'),
+    path: resolve('./dist'),
     filename: '[name].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /.ts$/,
         loader: 'ts-loader'
