@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { map, scan, takeUntil, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 const a$ = new Observable<number>(observer => {
   const timer = setInterval(() => {
@@ -20,3 +20,5 @@ a$.pipe(
 ).subscribe();
 
 a$.subscribe(value => console.log(value));
+
+// 两次定义会产生两个不同的定时器

@@ -4,7 +4,9 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
-  entry: './src/main.ts',
+  entry: {
+    main: './src/main.ts'
+  },
   resolve: {
     extensions: ['.js', '.ts']
   },
