@@ -13,10 +13,22 @@ const a$ = new Observable<number>(observer => {
   };
 });
 
-a$.pipe(
-  tap(value => {
-    console.log(value);
-  })
-).subscribe();
+// a$.pipe(
+//   tap(value => {
+//     console.log(value);
+//   })
+// ).subscribe();
 
-a$.subscribe(value => console.log(value));
+a$.subscribe({
+  complete() {
+    console.log('complete');
+  }
+}).unsubscribe();
+
+new Observable<number>(observer => {
+  observer.next(2);
+}).subscribe(value => {
+  console.log(value);
+});
+
+console.log('main end.');

@@ -11,6 +11,7 @@
     "curly": true,
     "eofline": true,
     "forin": true,
+    "no-empty-interface": false,
     "indent": [true, "spaces"],
     "interface-name": [false],
     "jsdoc-format": true,

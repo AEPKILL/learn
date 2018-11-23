@@ -1,22 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import AsyncSetState from './component/async-set-state';
+import React, { useRef, useState } from 'react';
+
+interface User {
+  name: string;
+}
+
+const Item: React.SFC<{ name: string }> = ({ name }) => {
+  return (
+    <li>
+      {name}
+      <input />
+    </li>
+  );
+};
 
 const App: React.SFC = () => {
-  const [count, setCount] = useState(0);
-  const title = document.title;
-  useEffect(
-    () => {
-      document.title = `click ${count} times`;
-      return () => (document.title = title);
-    },
-    [count]
-  );
+  const [list, setList] = useState<User[]>([]);
+  const input = useRef<HTMLInputElement>(null);
+  function handClickAddUser() {
+    if (input && input.current && input.current.value) {
+      setList([{ name: input.current.value }, ...list]);
+    }
+  }
   return (
     <div>
-      <h1>App</h1>
-      <div>You click {count} times!</div>
-      <button onClick={() => setCount(count + 1)}>click me</button>
-      <AsyncSetState />
+      <ul>
+        {list.map((user, index) => (
+          <Item name={user.name} key={index} />
+        ))}
+      </ul>
+      <input ref={input} />
+      <div>
+        <button onClick={handClickAddUser}>add user</button>
+      </div>
     </div>
   );
 };

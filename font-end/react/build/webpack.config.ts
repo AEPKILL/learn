@@ -1,10 +1,10 @@
-import * as CopyPlugin from 'copy-webpack-plugin';
-import * as HtmlPlugin from 'html-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import HtmlPlugin from 'html-webpack-plugin';
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
-  entry: './src/main.ts',
+  entry: './src/main.tsx',
   resolve: {
     extensions: ['.js', '.ts', '.tsx']
   },
@@ -22,7 +22,7 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /.ts$/,
+        test: /.tsx?$/,
         loader: 'ts-loader'
       }
     ]

@@ -1,7 +1,7 @@
 {
-  "name": "seed-project",
+  "name": "learn-react",
   "version": "1.0.0",
-  "description": "font-end seed project",
+  "description": "learn React",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./build/webpack.config.ts"
@@ -22,5 +22,11 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.9",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
   }
 }
