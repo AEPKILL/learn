@@ -1,6 +1,25 @@
-module.exports = {
+const angularConfig = (module.exports = {
   extends: ['@commitlint/config-angular'],
   rules: {
-    'type-enum': [1, 'always', ['learn', 'config', 'note']]
+    'type-enum': [
+      2,
+      'always',
+      [
+        'build',
+        'ci',
+        'docs',
+        'feat',
+        'fix',
+        'perf',
+        'refactor',
+        'revert',
+        'style',
+        'test',
+        'learn',
+        'config',
+        'note',
+        'doc',
+      ]
+    ]
   }
-};
+});
