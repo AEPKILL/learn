@@ -5,3 +5,13 @@ package-lock.json
 *.log
 
 /**/*.~$lock
+
+# VS2017 Debug&Release 文件
+/algorithm/**/Debug/
+/cplusplus/**/Debug/
+
+/algorithm/**/Release/
+/cplusplus/**/Release/
+
+/algorithm/**/.vs/
+/cplusplus/**/.vs/
