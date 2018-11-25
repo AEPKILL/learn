@@ -1,3 +1,3 @@
 # LEARN & NOTE
 
-Just Some Code And Some Note.
+Just Some Codes And Some Notes.
