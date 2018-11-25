@@ -1,8 +1,8 @@
 import React from 'react';
-import Clock from './component/clock';
+import FlavorFrom from './component/from/flavor-from';
 
 const App: React.SFC = () => {
-  return <Clock />;
+  return <FlavorFrom />;
 };
 
 export default App;
