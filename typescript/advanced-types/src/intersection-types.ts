@@ -14,7 +14,9 @@ type Intersection2<T, U> = { [M in keyof (T & U)]: (T & U)[M] };
 type K1 = keyof ({ name: string } & { age: number });
 type K2 = keyof { name: string; age: number };
 
-
+// 这样也是相同的
+type K3 = Intersection<{ p: string }, { p: number }>;
+type K4 = Intersection2<{ p: string }, { p: number }>;
 
 type NormalIntersection = Intersection<
   {
