@@ -37,3 +37,5 @@ const n1: NormalIntersection = { name: 'aepkill', age: 222, kk: '2333' };
 const n2: NormalIntersection2 = n1;
 
 // 似乎只是写法和 ts 查看类型定义的表示不一样
+
+export default {};
