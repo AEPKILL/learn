@@ -1,16 +1,13 @@
-import baseServerApp, { lanuch, setMainUrl } from './server-base';
+import baseServerApp, { lanuch, setMainPage } from './server-base';
 
 baseServerApp.use(async (ctx, next) => {
   await next();
-  const preCacheControlField = ctx.response.get('Cache-Control');
-  if (preCacheControlField.toLowerCase().indexOf('no-cache') === -1) {
-    ctx.response.set('Cache-Control', `no-cache, ${preCacheControlField}`);
-  }
-  // ctx.response.remove('Last-Modified');
+  // ctx.response.set('Cache-Control', 'max-age=0');
+  // 删除响应头的缓存控制
   ctx.response.remove('Cache-Control');
-  ctx.response.remove('ETag');
+  // ctx.response.remove('ETag');
 });
 
-setMainUrl('/max-age.html');
+setMainPage('/max-age.html');
 
 lanuch();
