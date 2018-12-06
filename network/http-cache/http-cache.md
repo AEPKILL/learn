@@ -67,7 +67,7 @@ HTTP 缓存的理解基本上可以总结为三个问题:
 
 ## 缓存首部
 
-HTTP 缓存主要通过 HTTP 首部来实现缓存控制。这些与缓存相关的 HTTP 首部这里统称为**缓存首部**，具体首部如下表所示。
+HTTP 缓存主要通过 HTTP 首部来实现缓存控制。这些与缓存相关的 HTTP 首部这里统称为 **缓存首部**，具体首部如下表所示。
 
 | 首部字段          | 首次定义 | 首部类型 |
 | ----------------- | -------- | -------- |
@@ -91,7 +91,7 @@ HTTP 缓存主要通过 HTTP 首部来实现缓存控制。这些与缓存相关
 
 `HTTP/1.1` 定义的 `Cache-Control`头用来区分对缓存机制的支持情况， 请求头和响应头都支持这个属性。通过它提供的不同的值来定义缓存策略。
 
-`Cache-Control` 通用消息头字段被用于在http 请求和响应中通过指定指令来实现缓存机制。
+`Cache-Control` 通用消息头字段被用于在 `http` 请求和响应中通过指定指令来实现缓存机制。
 
 缓存指令是单向的，这意味着在请求设置的指令，在响应中不一定包含相同的指令。
 
@@ -129,7 +129,7 @@ Cache-control: s-maxage=<seconds>
 
 * `public` 表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存。
 
-* `private` 表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）,可以缓存响应内容。
+* `private` 表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。
 
 * `no-cache` 这个并非字面意义上的"不使用缓存"，而是每次使用缓存前都需要和服务器确认缓存是否过期
 
@@ -137,7 +137,9 @@ Cache-control: s-maxage=<seconds>
 
   * 响应头包含这个字段的时候，浏览器每次使用该资源的时候都 **必须和服务器确认该资源是否过期**
 
-    如果未过期则仅返回 `304` 状态码不包含文件体，如果过期则返回 `200` 状态码 ( Chrome 浏览器中 `Javascript` 拿不到 `304` 状态码，304 状态码都被转换成 200 了 )
+    如果未过期则仅返回 `304` 状态码不包含文件体。
+
+    如果过期则返回 `200` 状态码 ，浏览器重新下载该资源。( Chrome 浏览器中 `Javascript` 拿不到 `304` 状态码，304 状态码都被转换成 200 了 )
 
     注意：这里 **必须有一个有效的确认资源是否过期的手段**，比如浏览器的请求头需要包含 `If-Modified-Since`或者 `ETag`之类能够让服务器识别当前资源版本的标识。如果不包含这些标识，服务器会返回 `200` 状态码然后导致浏览器重新下载该资源。
 
@@ -209,38 +211,6 @@ Cache-control: s-maxage=<seconds>
 
 ## 缓存首部优先级
 
-* 响应头中的缓存控制优先级高于请求头中的缓存控制优先级
-
-  例如响应头设置了`max-age=0`，即使请求头设置了 `max-age=200`，每次请求的时候依然会发起一次请求判断资源是否过期
-
-  example:
-
-  ```http
-  GET /api/data.json HTTP/1.1
-  Host: localhost:3000
-  Connection: keep-alive
-  Cache-Control: max-age=200
-  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
-  Accept: */*
-  Referer: http://localhost:3000/max-age.html
-  Accept-Encoding: gzip, deflate, br
-  Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6
-  If-None-Match: W/"22-16781c6a63d"
-  If-Modified-Since: Thu, 06 Dec 2018 04:28:58 GMT
-  ```
-
-  ```http
-  HTTP/1.1 304 Not Modified
-  Last-Modified: Thu, 06 Dec 2018 04:28:58 GMT
-  Cache-Control: max-age=0
-  ETag: W/"22-16781c6a63d"
-  Date: Thu, 06 Dec 2018 10:08:08 GMT
-  Connection: keep-alive
-  ```
-
-
-
-  即使请求头中设置了 `max-age=200`，但是依然会发起一个确认请求。
 
 
 ## 其他
