@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "max-age": "nodemon -watch server -e ts --exec \"ts-node ./server/max-age.ts\""
+    "max-age": "nodemon -watch server -e ts --exec \"ts-node ./server/max-age.ts\"",
+    "max-stale": "nodemon -watch server -e ts --exec \"ts-node ./server/max-stale.ts\"",
+    "proxy-server": "nginx -c ./proxy-server/nginx.conf"
   },
   "keywords": [],
   "author": "",

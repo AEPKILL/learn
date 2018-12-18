@@ -9,6 +9,6 @@ baseServerApp.use(async (ctx, next) => {
   // ctx.response.remove('Last-Modified');
 });
 
-setMainPage('/max-age.html');
+setMainPage('/max-stale.html');
 
 lanuch();
