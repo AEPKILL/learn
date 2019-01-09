@@ -24,15 +24,15 @@
    | TERM ，INT | 快速停止 `nginx` 服务 |
    | QUIT | 平缓停止 `nginx` 服务 |
    | HUP | 使用新的配置文件启动进程，平缓停止原有进程，作用是平滑重启 |
-   | HSR1 | 重新打开日志文件，常用于日志切割 |
-   | HSR2 | 使用新版本的 `nginx` 文件启动服务，之后平缓停止原有 `nginx` 进程 |
+   | USR1 | 重新打开日志文件，常用于日志切割 |
+   | USR2 | 使用新版本的 `nginx` 文件启动服务，之后平缓停止原有 `nginx` 进程 |
    | WINCH | 平缓停止 `worker process` ，用于 `nginx` 服务器平滑升级 |
 
    使用 `./sbin/nginx -s <SINGAL>` 控制 `nginx` 可接受的控制信号( 详情参阅 [Controlling NGINX Processes at Runtime](https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control))：
 
-   - `quit` – 优雅停止 `nginx` 服务
+   - `quit` – 平缓停止 `nginx` 服务
 
-   - `reload` – 重新载入配置文件(优雅停止原进程)
+   - `reload` – 重新载入配置文件(平缓停止原进程)
 
    - `reopen` – 重新打开日志文件
 
