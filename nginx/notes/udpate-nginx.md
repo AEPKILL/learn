@@ -17,7 +17,11 @@
 - 平滑升级
 
   1. 用新的 `nginx` 二进制文件替换老的二进制文件
-  2. 使用 `kill -s USR2 <nginx pid>` 向 `nginx master`  进程发送 USR2 信号， `nginx` 会用新的 `nginx` 文件启动 `nginx` 服务，
+  2. 使用 `kill -s USR2 <nginx pid>` 向 `nginx master`  进程发送 USR2 信号， `nginx` 会用新的 `nginx` 文件启动 `nginx` 服务
+  3. 向旧的 `nginx` 主进程发送 `WINCH` 信号，停止旧的 `nginx` 工作进程
+  4. 向旧的 `nginx` 主进程发送 `QUIT` 信号，退出旧的主进程
+
+  > [Starting, Stopping, and Restarting NGINX](https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/)
 
 
 

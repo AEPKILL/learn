@@ -18,12 +18,13 @@
    ./sbin/nigx -s <SINGAL>
    ```
    获取 `nginx` 的 `PID` 可以查看 `nginx` 目录下的 `nginx.pid`。
-   使用 `kill -s <SIGNAL> <PID>`  控制 `nginx` 可接受的控制信号( 详情参阅 [control nginx](http://nginx.org/en/docs/control.html) ):
+   使用 `kill -s <SIGNAL> <PID>`  控制 `nginx` 可接受的控制信号( 详情参阅 [control nginx](http://nginx.org/en/docs/control.html) or [Starting, Stopping, and Restarting NGINX](https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/#starting-stopping-and-restarting-nginx) ):
+
    | 信号        | 作用 |
    | :-- | :--- |
-   | TERM ，INT | 快速停止 `nginx` 服务 |
-   | QUIT | 平缓停止 `nginx` 服务 |
-   | HUP | 使用新的配置文件启动进程，平缓停止原有进程，作用是平滑重启 |
+   | TERM ，INT | 快速停止 `nginx` 主进程 |
+   | QUIT | 平缓停止 `nginx` 主进程 |
+   | HUP | 使用新的配置文件启动工作进程，平缓停止原有工作进程，作用是平滑重启 |
    | USR1 | 重新打开日志文件，常用于日志切割 |
    | USR2 | 使用新版本的 `nginx` 文件启动服务，之后平缓停止原有 `nginx` 进程 |
    | WINCH | 平缓停止 `worker process` ，用于 `nginx` 服务器平滑升级 |
