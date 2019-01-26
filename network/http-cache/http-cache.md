@@ -131,7 +131,7 @@ Cache-control: s-maxage=<seconds>
 
 * `private` 表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。
 
-* `no-cache` 这个并非字面意义上的"不使用缓存"，而是每次使用缓存前都需要和服务器确认缓存是否过期
+* `no-cache` 这个并非字面意义上的"不使用缓存"
 
   * 请求头包含这个字段的时候，浏览器和所有代理服务器都 **必须直接从源服务器下载最新的资源**
 
@@ -205,6 +205,10 @@ Cache-control: s-maxage=<seconds>
 
   **注意：如果请求头和响应头都包含`max-age`，以二者中较小的值为准 (详见 [rfc2616#14.9.3](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9.3))。**
 
+* s-maxage=<seconds> 覆盖max-age 或者 Expires 头，但是仅适用于共享缓存(比如各个代理)，并且私有缓存中它被忽略。
+
+* max-stale[=<seconds>] 表明客户端愿意接收一个已经过期的资源。 可选的设置一个时间(单位秒)，表示响应不能超过的过时时间。
+
 指令不区分大小写，并且具有可选参数，可以用令牌或者带引号的字符串语法。多个指令以逗号分隔。
 
 
@@ -215,63 +219,65 @@ Cache-control: s-maxage=<seconds>
 
 ## 其他
 
-* `no-cache` 与 `max-age=0` 的区别
+### `no-cache` 与 `max-age=0` 的区别
 
-  如果出现在响应头中，二者没有差别。
+如果出现在响应头中，二者没有差别。
 
-  如果出现在请求头中: 
+如果出现在请求头中: 
 
-  * `no-cache` 浏览器和所有代理服务器都必须直接从源服务器下载最新的资源
+* `no-cache` 浏览器和所有代理服务器都必须直接从源服务器下载最新的资源
 
-    ``` http
-    GET /api/data.json HTTP/1.1
-    Host: localhost:3000
-    Connection: keep-alive
-    Cache-Control: no-cache
-    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
-    Accept: */*
-    Referer: http://localhost:3000/max-age.html
-    Accept-Encoding: gzip, deflate, br
-    Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6
-    ```
+  ``` http
+  GET /api/data.json HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/max-age.html
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6
+  ```
 
-    ```http
-    HTTP/1.1 200 OK
-    Content-Length: 34
-    Last-Modified: Thu, 06 Dec 2018 04:28:58 GMT
-    Cache-Control: max-age=50
-    Content-Type: application/json; charset=utf-8
-    ETag: W/"22-16781c6a63d"
-    Date: Thu, 06 Dec 2018 12:16:43 GMT
-    Connection: keep-alive
-    ```
+  ```http
+  HTTP/1.1 200 OK
+  Content-Length: 34
+  Last-Modified: Thu, 06 Dec 2018 04:28:58 GMT
+  Cache-Control: max-age=50
+  Content-Type: application/json; charset=utf-8
+  ETag: W/"22-16781c6a63d"
+  Date: Thu, 06 Dec 2018 12:16:43 GMT
+  Connection: keep-alive
+  ```
 
-  * `max-age=0` 浏览器会和服务器确认资源是否过期，然后决定使用缓存还是重新从服务器下载。
+* `max-age=0` 浏览器会和服务器确认资源是否过期，然后决定使用缓存还是重新从服务器下载。
 
-    ```http
-    GET /api/data.json HTTP/1.1
-    Host: localhost:3000
-    Connection: keep-alive
-    Cache-Control: max-age=0
-    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
-    Accept: */*
-    Referer: http://localhost:3000/max-age.html
-    Accept-Encoding: gzip, deflate, br
-    Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6
-    If-None-Match: W/"22-16781c6a63d"
-    If-Modified-Since: Thu, 06 Dec 2018 04:28:58 GMT
-    ```
+  ```http
+  GET /api/data.json HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Cache-Control: max-age=0
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/max-age.html
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-TW;q=0.6
+  If-None-Match: W/"22-16781c6a63d"
+  If-Modified-Since: Thu, 06 Dec 2018 04:28:58 GMT
+  ```
 
-    ```http
-    HTTP/1.1 304 Not Modified
-    Last-Modified: Thu, 06 Dec 2018 04:28:58 GMT
-    Cache-Control: max-age=50
-    ETag: W/"22-16781c6a63d"
-    Date: Thu, 06 Dec 2018 12:18:53 GMT
-    Connection: keep-alive
-    ```
+  ```http
+  HTTP/1.1 304 Not Modified
+  Last-Modified: Thu, 06 Dec 2018 04:28:58 GMT
+  Cache-Control: max-age=50
+  ETag: W/"22-16781c6a63d"
+  Date: Thu, 06 Dec 2018 12:18:53 GMT
+  Connection: keep-alive
+  ```
 
+### 启发式过期策略
 
+根据 `RFC2616` 的规定，如果响应头没有显式提供缓存控制指令，那么这个资源是不可缓存的，但是现代主流浏览器都忽略了这个规定，并使用了启发式缓存策略。
 
 
 > **本文复制了参考资料中的大段文字，因为我觉得原文写得非常好，没有修改的必要。在此对原作者表示感谢，如果侵犯到了你的权益，请联系删除。**

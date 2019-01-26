@@ -5,7 +5,7 @@ import koaEtag from 'koa-etag';
 import { join } from 'path';
 import { createInterface } from 'readline';
 
-const baseServerApp = new Koa();
+const app = new Koa();
 
 /**
  *设置主页 访问 '/' 的时候直接跳转到相应页面 主要是我懒得在浏览器地址栏复制粘贴 emmm
@@ -14,7 +14,7 @@ const baseServerApp = new Koa();
  * @param {string} url
  */
 export function setMainPage(url: string) {
-  baseServerApp.use(async (ctx, next) => {
+  app.use(async (ctx, next) => {
     await next();
     if (ctx.path === '/') {
       ctx.redirect(url);
@@ -32,15 +32,15 @@ export function setMainPage(url: string) {
  */
 export function lanuch() {
   // 加入这个中间件让 Koa 响应 304
-  baseServerApp.use(koaConditionalGet());
+  app.use(koaConditionalGet());
   // 加入 ETag
-  baseServerApp.use(koaEtag());
+  app.use(koaEtag());
   // 静态文件中间件
-  baseServerApp.use(koaStatic(join(__dirname, '../public'), {}));
+  app.use(koaStatic(join(__dirname, '../public'), {}));
   // Listen & Start
-  baseServerApp.listen(3000, () => {
+  app.listen(3000, () => {
     console.log('server start on port 3000.');
   });
 }
 
-export default baseServerApp;
+export default app;

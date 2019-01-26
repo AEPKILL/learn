@@ -1,6 +1,6 @@
-import baseServerApp, { lanuch, setMainPage } from './server-base';
+import app, { lanuch, setMainPage } from './server-base';
 
-baseServerApp.use(async (ctx, next) => {
+app.use(async (ctx, next) => {
   await next();
   ctx.response.set('Cache-Control', 'max-age=5');
   // 删除响应头的缓存控制
