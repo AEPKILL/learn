@@ -41,17 +41,17 @@
  * @return {number}
  */
 var maxArea = function(heights) {
-  let i = 0;
-  let j = heights.length - 1;
+  let left = 0;
+  let right = heights.length - 1;
   let maxArea = 0;
-  while (j > i) {
-    const hI = heights[i];
-    const hJ = heights[j];
-    maxArea = Math.max(maxArea, Math.min(hI, hJ) * (j - i));
-    if (hI > hJ) {
-      j--;
+  while (right > left) {
+    const hLeft = heights[left];
+    const hRight = heights[right];
+    maxArea = Math.max(maxArea, Math.min(hLeft, hRight) * (right - left));
+    if (hLeft > hRight) {
+      right--;
     } else {
-      i++;
+      left++;
     }
   }
   return maxArea;
