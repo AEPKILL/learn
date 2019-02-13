@@ -48,10 +48,10 @@
 var findMedianSortedArrays = function(nums1, nums2) {
   const lenN1 = nums1.length;
   const lenN2 = nums2.length;
+  const median = Math.ceil((lenN1 + lenN2 + 1) / 2);
   const isOddLen = (lenN1 + lenN2) % 2 === 0;
   const result = [0, 0];
 
-  let median = Math.ceil((lenN1 + lenN2 + 1) / 2);
   let i = 0; // point for nums1
   let j = 0; // point for nums2
 
