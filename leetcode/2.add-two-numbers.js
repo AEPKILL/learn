@@ -61,10 +61,12 @@ var addTwoNumbers = function(l1, l2) {
       l2 = l2.next;
     }
     if (head.val >= 10) {
-      const l = (head.val / 10) >> 0;
-      const l2 = head.val % 10;
-      head.val = l2;
-      head = head.next = new ListNode(l);
+      // 十位
+      const tenBits = (head.val / 10) >> 0;
+      // 个位
+      const bits = head.val % 10;
+      head.val = bits;
+      head = head.next = new ListNode(tenBits);
     } else {
       if (l1 || l2) {
         head = head.next = new ListNode(0);
