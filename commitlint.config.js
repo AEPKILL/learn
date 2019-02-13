@@ -6,6 +6,7 @@ module.exports = {
       'always',
       [
         'build',
+		'optimize',
         'ci',
         'docs',
         'feat',
