@@ -65,6 +65,7 @@ var search = function(nums, target) {
 
     // 右边是升序
     if (isDescSorted(nums, mid, right)) {
+      // 包含在右边
       if (isBetween(target, nums, mid, right)) {
         left = mid + 1;
       } else {
@@ -73,6 +74,7 @@ var search = function(nums, target) {
     }
     // 左边是升序
     else {
+      // 包含在左边
       if (isBetween(target, nums, left, mid)) {
         right = mid - 1;
       } else {
