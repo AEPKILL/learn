@@ -83,7 +83,7 @@
  */
 
 // 不使用缓存大概 200ms+
-// 使用缓存大概 90 - 100ms
+// 使用缓存大概 80 - 100ms
 
 /**
  * @param {string} s
@@ -91,61 +91,60 @@
  * @return {boolean}
  */
 var isMatch = function(s, p) {
-  const cache = new Map();
-  return isMatchCore(s, p, 0, 0);
+  return isMatchCore(s, p, 0, 0, new Map());
+};
+function isMatchCore(
+  /** @type {string} */ s,
+  /** @type {string} */ p,
+  /** @type {number} */ i,
+  /** @type {number} */ j,
+  /** @type { Map<string,boolean> } */ cache
+) {
+  const key = `${i}_${j}`;
+  let matchLens = 0;
+  if (cache.has(key)) {
+    return cache.get(key);
+  }
+  while (j < p.length) {
+    const char = s[i];
+    const matchChar = p[j];
+    const isLayzMatchChar = p[j + 1] === '*';
 
-  function isMatchCore(
-    /** @type {string} */ s,
-    /** @type {string} */ p,
-    /** @type {number} */ i,
-    /** @type {number} */ j
-  ) {
-    const key = `${i}_${j}`;
-    let matchLens = 0;
-    if (cache.has(key)) {
-      return cache.get(key);
-    }
-    while (j < p.length) {
-      const char = s[i];
-      const matchChar = p[j];
-      const isLayzMatchChar = p[j + 1] === '*';
-
-      // 符号被星号修饰 需要执行懒查询
-      if (isLayzMatchChar) {
-        let matchLens = 0;
-        while (i < s.length) {
-          // 首先尝试不匹配任何字符
-          const isMatched = isMatchCore(s, p, i, j + 2);
-          if (isMatched) {
-            cache.set(key, true);
-            return true;
-          }
-          matchLens = commonSingleCharMatch(s[i], matchChar);
-          // 匹配了 0 个字符
-          if (!matchLens) {
-            break;
-          }
-          i++;
+    // 符号被星号修饰 需要执行懒查询
+    if (isLayzMatchChar) {
+      let matchLens = 0;
+      while (i < s.length) {
+        // 首先尝试不匹配任何字符
+        const isMatched = isMatchCore(s, p, i, j + 2, cache);
+        if (isMatched) {
+          cache.set(key, true);
+          return true;
         }
-        j += 2;
-      }
-      // 单字符匹配
-      else {
-        matchLens = commonSingleCharMatch(char, matchChar);
+        matchLens = commonSingleCharMatch(s[i], matchChar);
+        // 匹配了 0 个字符
         if (!matchLens) {
-          cache.set(key, false);
-          return false;
+          break;
         }
         i++;
-        j++;
       }
+      j += 2;
     }
-
-    const result = i === s.length;
-    cache.set(key, result);
-    return result;
+    // 单字符匹配
+    else {
+      matchLens = commonSingleCharMatch(char, matchChar);
+      if (!matchLens) {
+        cache.set(key, false);
+        return false;
+      }
+      i++;
+      j++;
+    }
   }
-};
+
+  const result = i === s.length;
+  cache.set(key, result);
+  return result;
+}
 
 // 通用匹配
 function commonSingleCharMatch(
