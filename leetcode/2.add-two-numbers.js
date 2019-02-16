@@ -49,9 +49,10 @@ var addTwoNumbers = function(l1, l2) {
   if (l2 === null) {
     return l1;
   }
-  let result, head;
-  result = head = new ListNode(0);
-  while (l1 || l2) {
+  const result = new ListNode(0);
+  // 当前处理的节点
+  let head = result;
+  while (true) {
     if (l1) {
       head.val += l1.val;
       l1 = l1.next;
@@ -67,10 +68,10 @@ var addTwoNumbers = function(l1, l2) {
       const bits = head.val % 10;
       head.val = bits;
       head = head.next = new ListNode(tenBits);
+    } else if (l1 || l2) {
+      head = head.next = new ListNode(0);
     } else {
-      if (l1 || l2) {
-        head = head.next = new ListNode(0);
-      }
+      break;
     }
   }
   return result;
