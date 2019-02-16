@@ -112,16 +112,15 @@ function isMatchCore(
 
     // 符号被星号修饰 需要执行懒查询
     if (isLayzMatchChar) {
-      let matchLens = 0;
       while (i < s.length) {
-        // 首先尝试不匹配任何字符
+        // 首先尝试不匹配任何字符 因为 * 号修饰的模式串是可以省略的
         const isMatched = isMatchCore(s, p, i, j + 2, cache);
         if (isMatched) {
           cache.set(key, true);
           return true;
         }
         matchLens = commonSingleCharMatch(s[i], matchChar);
-        // 匹配了 0 个字符
+        // 失去匹配
         if (!matchLens) {
           break;
         }
@@ -146,7 +145,7 @@ function isMatchCore(
   return result;
 }
 
-// 通用匹配
+// 通用单字符匹配规则
 function commonSingleCharMatch(
   /** @type {string} */ ch,
   /** @type {string} */ matchCh
