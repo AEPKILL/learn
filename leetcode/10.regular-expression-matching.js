@@ -110,14 +110,16 @@ function isMatchCore(
     const matchChar = p[j];
     const isLayzMatchChar = p[j + 1] === '*';
 
-    // 符号被星号修饰 需要执行懒查询
+    // 当前符号被星号修饰
+    // 对当前符号进行懒查询
+    // 当前字符可以忽略也可以重复 N 次
+    // 尝试匹配最少字符
     if (isLayzMatchChar) {
       while (i < s.length) {
         // 首先尝试不匹配任何字符 因为 * 号修饰的模式串是可以省略的
         const isMatched = isMatchCore(s, p, i, j + 2, cache);
         if (isMatched) {
-          cache.set(key, true);
-          return true;
+          return setCache(cache, key, true);
         }
         matchLens = commonSingleCharMatch(s[i], matchChar);
         // 失去匹配
@@ -132,17 +134,14 @@ function isMatchCore(
     else {
       matchLens = commonSingleCharMatch(char, matchChar);
       if (!matchLens) {
-        cache.set(key, false);
-        return false;
+        return setCache(cache, key, false);
       }
       i++;
       j++;
     }
   }
 
-  const result = i === s.length;
-  cache.set(key, result);
-  return result;
+  return setCache(cache, key, i === s.length);
 }
 
 // 通用单字符匹配规则
@@ -154,4 +153,17 @@ function commonSingleCharMatch(
     return 1;
   }
   return 0;
+}
+
+/**
+ * 设置缓存并返回当前值
+ *
+ * @param {Map<string , boolean>} cacheStore
+ * @param {string} key
+ * @param {boolean} value
+ * @returns
+ */
+function setCache(cacheStore, key, value) {
+  cacheStore.set(key, value);
+  return value;
 }
