@@ -41,6 +41,7 @@ var longestValidParentheses = function(s) {
   for (let i = 0; i < s.length; i++) {
     const char = s[i];
     // )))() 需要考虑栈顶是否是 ( 符号
+    // 因为栈为空的时候 ) 符号也会入栈
     if (char === ')' && stack.length && s[top(stack)] === '(') {
       stack.pop();
       if (stack.length) {
@@ -53,7 +54,7 @@ var longestValidParentheses = function(s) {
         max = i + 1;
       }
     } else {
-      stack.push(i);
+      stack.push(i);            
     }
   }
   return max;
