@@ -1,15 +1,15 @@
-export default class Stack<T> {
-  private _stack: T[] = [];
-  push(val: T) {
+class Stack {
+  _stack = [];
+  push(val) {
     this._stack.push(val);
   }
   pop() {
     return this._stack.pop();
   }
   empty() {
-    return this._stack.length === 0;
+    return !this._stack.length;
   }
-  top(): T | undefined {
+  top() {
     return this._stack[this._stack.length - 1];
   }
 }

@@ -31,35 +31,54 @@
  *
  *
  */
+/// <reference path="./utils/stack.d.ts" />
+
 /**
  * @param {string} s
  * @return {number}
  */
 var longestValidParentheses = function(s) {
+  /** @type {Stack<number>} */
+  const stack = new Stack();
+
   let max = 0;
-  let stack = [];
   for (let i = 0; i < s.length; i++) {
     const char = s[i];
     // )))() 需要考虑栈顶是否是 ( 符号
     // 因为栈为空的时候 ) 符号也会入栈
-    if (char === ')' && stack.length && s[top(stack)] === '(') {
+    if (char === ')' && !stack.empty() && s[stack.top] === '(') {
       stack.pop();
-      if (stack.length) {
-        // i - stack.top
-        // stack.top 是左 "(" 前一个字符
-        max = Math.max(max, i - top(stack));
-      }
-      // 意味着整个字符串是以 "(" 开头 且被完全匹配了
-      else {
+
+      // 栈为空意味着整个字符串是以 "(" 开头 且被完全匹配了
+      if (stack.empty()) {
         max = i + 1;
       }
+      // 栈不为空
+      else {
+        // i - stack.top
+        // stack.top 是左 "(" 前一个字符
+        max = Math.max(max, i - stack.top);
+      }
     } else {
-      stack.push(i);            
+      stack.push(i);
     }
   }
   return max;
 };
 
-function top(s) {
-  return s[s.length - 1];
+// utils/stack.js
+class Stack {
+  _stack = [];
+  get top() {
+    return this._stack[this._stack.length - 1];
+  }
+  push(val) {
+    this._stack.push(val);
+  }
+  pop() {
+    return this._stack.pop();
+  }
+  empty() {
+    return !this._stack.length;
+  }
 }

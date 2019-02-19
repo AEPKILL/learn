@@ -27,6 +27,7 @@
  *
  *
  */
+/// <reference path="./utils/list-node.d.ts" />
 /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -36,8 +37,8 @@
  */
 /**
  *
- * @param {ListNode[]} lists
- * @return {ListNode}
+ * @param {ListNode<number>[]} lists
+ * @return {ListNode<number>}
  */
 var mergeKLists = function(lists) {
   // for testcase '[]'
@@ -46,6 +47,7 @@ var mergeKLists = function(lists) {
   }
   // 合并的时候两两合并，防止一个 list 越来越长导致
   while (lists.length > 1) {
+    /** @type { ListNode<number>[] } */
     const merged = [];
     const len = lists.length;
     for (let i = 0; i < len - 1; i += 2) {
@@ -62,6 +64,13 @@ var mergeKLists = function(lists) {
   return lists[0];
 };
 
+/**
+ * merge two sorted list
+ *
+ * @param {ListNode<number>} l1
+ * @param {ListNode<number>} l2
+ * @returns {ListNode<number>}
+ */
 function merge(l1, l2) {
   const result = new ListNode(0);
   let head = result;

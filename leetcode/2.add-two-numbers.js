@@ -27,6 +27,9 @@
  *
  *
  */
+
+/// <reference path="./utils/list-node.d.ts" />
+
 /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -35,9 +38,9 @@
  * }
  */
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
+ * @param {ListNode<number>} l1
+ * @param {ListNode<number>} l2
+ * @return {ListNode<number>}
  */
 var addTwoNumbers = function(l1, l2) {
   if (l1 === null || l2 === null) {

@@ -38,7 +38,7 @@
  *
  *
  */
-
+/// <reference path="./utils/list-node.d.ts" />
 // Definition for singly-linked list.
 
 /**
@@ -49,9 +49,9 @@
  */
 
 /**
- * @param {ListNode} list
+ * @param {ListNode<number>} list
  * @param {number} k
- * @return {ListNode}
+ * @return {ListNode<number>}
  */
 var reverseKGroup = function(list, k) {
   if (k < 2) {
@@ -60,6 +60,7 @@ var reverseKGroup = function(list, k) {
   if (!list) {
     return list;
   }
+  /** @type { Array<ListNode<number>> } */
   const cache = new Array(k);
   const result = new ListNode(0);
   // head result

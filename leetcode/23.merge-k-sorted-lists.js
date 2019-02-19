@@ -27,6 +27,7 @@
  *
  *
  */
+/// <reference path="./utils/list-node.d.ts" />
 /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -35,8 +36,8 @@
  * }
  */
 /**
- * @param {ListNode[]} lists
- * @return {ListNode}
+ * @param {ListNode<number>[]} lists
+ * @return {ListNode<number>}
  */
 var mergeKLists = function(lists) {
   const result = new ListNode(0);
@@ -45,6 +46,7 @@ var mergeKLists = function(lists) {
 
   while (true) {
     // 存放需要去掉的空指针节点
+    /** @type {number[]} */
     const filterIndexs = [];
 
     // 最小值节点的索引
