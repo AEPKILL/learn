@@ -7,7 +7,7 @@
 ```shell
 npm install
 npm install leetcode-cli -g # or use leecode extension for vscode
-npm start ## then will build typescirpt file to ./leetcode folder and keep watch
+npm run watch ## then will build typescirpt file to ./leetcode folder and keep watch
 ```
 
 [leetcode-cli](https://github.com/skygragon/leetcode-cli)
