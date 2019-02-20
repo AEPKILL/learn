@@ -49,13 +49,10 @@
  */
 
 /**
- * @param {string} s
- * @return {number}
- *
  * 100ms
  */
-var lengthOfLongestSubstring = function(s) {
-  const charLastIndexs = (new Array(128)).fill(-1);
+const lengthOfLongestSubstring = function(s: string) {
+  const charLastIndexs = new Array(128).fill(-1);
   let max = 0;
   let left = 0;
 

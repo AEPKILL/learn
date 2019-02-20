@@ -41,13 +41,10 @@
  * overflows.
  *
  */
-/**
- * @param {number} x
- * @return {number}
- */
+
 // 31Bit, because 32bit number has a one flag bit.
-const MAX_SAFE_NUMBER = 0b1111111111111111111111111111111; // 0x7fffffff 
-var reverse = function(x) {
+const MAX_SAFE_NUMBER = 0b1111111111111111111111111111111; // 0x7fffffff
+const reverse = function(x: number) {
   let num = x;
   let result = 0;
 

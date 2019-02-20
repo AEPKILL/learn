@@ -1,15 +1,15 @@
 /*
- * @lc app=leetcode id=12 lang=javascript
+ * @lc app=leetcode id=13 lang=javascript
  *
- * [12] Integer to Roman
+ * [13] Roman to Integer
  *
- * https://leetcode.com/problems/integer-to-roman/description/
+ * https://leetcode.com/problems/roman-to-integer/description/
  *
  * algorithms
- * Medium (49.45%)
- * Total Accepted:    200.4K
- * Total Submissions: 404.2K
- * Testcase Example:  '3'
+ * Easy (51.28%)
+ * Total Accepted:    351.8K
+ * Total Submissions: 686K
+ * Testcase Example:  '"III"'
  *
  * Roman numerals are represented by seven different symbols: I, V, X, L, C, D
  * and M.
@@ -40,79 +40,67 @@
  * C can be placed before D (500) and M (1000) to make 400 and 900.
  *
  *
- * Given an integer, convert it to a roman numeral. Input is guaranteed to be
+ * Given a roman numeral, convert it to an integer. Input is guaranteed to be
  * within the range from 1 to 3999.
  *
  * Example 1:
  *
  *
- * Input: 3
- * Output: "III"
+ * Input: "III"
+ * Output: 3
  *
  * Example 2:
  *
  *
- * Input: 4
- * Output: "IV"
+ * Input: "IV"
+ * Output: 4
  *
  * Example 3:
  *
  *
- * Input: 9
- * Output: "IX"
+ * Input: "IX"
+ * Output: 9
  *
  * Example 4:
  *
  *
- * Input: 58
- * Output: "LVIII"
- * Explanation: L = 50, V = 5, III = 3.
+ * Input: "LVIII"
+ * Output: 58
+ * Explanation: L = 50, V= 5, III = 3.
  *
  *
  * Example 5:
  *
  *
- * Input: 1994
- * Output: "MCMXCIV"
+ * Input: "MCMXCIV"
+ * Output: 1994
  * Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  *
  */
 
-const valueSymbolMap = {
-  1: 'I',
-  4: 'IV',
-  5: 'V',
-  9: 'IX',
-  10: 'X',
-  40: 'XL',
-  50: 'L',
-  90: 'XC',
-  100: 'C',
-  400: 'CD',
-  500: 'D',
-  900: 'CM',
-  1000: 'M'
-};
-const values = Object.keys(valueSymbolMap)
-  .map(value => +value)
-  .sort((a, b) => b - a);
-  
-/**
- * @param {number} num
- * @return {string}
- */
-var intToRoman = function(num) {
-  let romanNumberString = '';
-  for (const value of values) {
-    if (num >= value) {
-      const repeat = (num / value) >> 0;
-      const symbol = valueSymbolMap[value];
-      num = num % value;
-      romanNumberString += symbol.repeat(repeat);
+const romanToInt = function(s: string): number {
+  const symbolMap: { [index: string]: number } = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000
+  };
+  let result = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    const value = symbolMap[s[i]];
+    if (i + 1 < s.length) {
+      const nextValue = symbolMap[s[i + 1]];
+      if (value < nextValue) {
+        result -= value;
+        continue;
+      }
     }
-    if (num === 0) {
-      break;
-    }
+    result += value;
   }
-  return romanNumberString;
+
+  return result;
 };

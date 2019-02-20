@@ -44,19 +44,16 @@
  * Coud you solve it without converting the integer to a string?
  *
  */
-/**
- * @param {number} x
- * @return {boolean}
- */
-var isPalindrome = function(x) {
+
+const isPalindrome = function(x: number) {
   if (x < 0) {
     return false;
   }
   return x === reverseNumber(x);
 };
 
-// ref: [7.reverse-integer.js](https://leetcode.com/problems/reverse-integer/description/)
-function reverseNumber(x) {
+// ref: [7.reverse-integer.ts](https://leetcode.com/problems/reverse-integer/description/)
+function reverseNumber(x: number) {
   let num = x;
   let result = 0;
 
@@ -68,4 +65,4 @@ function reverseNumber(x) {
   }
 
   return result;
-};
+}

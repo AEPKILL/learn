@@ -27,22 +27,14 @@
  *
  *
  */
-/// <reference path="./utils/list-node.d.ts" />
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode<number>[]} lists
- * @return {ListNode<number>}
- */
-var mergeKLists = function(lists) {
+
+const mergeKLists = function(
+  lists: Array<ListNode<number>>
+): ListNode<number> | null {
   const result = new ListNode(0);
+  const nodePointers = lists.slice(0);
+
   let head = result;
-  let nodePointers = lists.slice(0);
 
   while (true) {
     // 存放需要去掉的空指针节点
@@ -68,8 +60,7 @@ var mergeKLists = function(lists) {
       break;
     }
     head = head.next = nodePointers[minPointerIndex];
-    nodePointers[minPointerIndex] = nodePointers[minPointerIndex].next;
-
+    nodePointers[minPointerIndex] = nodePointers[minPointerIndex].next!;
     // 优化: 去掉空指针的节点
     // 476ms -> 280ms
     let j = 0;
@@ -78,6 +69,7 @@ var mergeKLists = function(lists) {
       j++;
     }
   }
-
   return result.next;
 };
+
+// include(./utils/stack.ts)

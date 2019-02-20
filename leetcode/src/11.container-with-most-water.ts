@@ -36,23 +36,20 @@
  * Output: 49
  *
  */
-/**
- * @param {number[]} heights
- * @return {number}
- */
-var maxArea = function(heights) {
+
+const maxArea = function(heights: number[]) {
   let left = 0;
   let right = heights.length - 1;
-  let maxArea = 0;
+  let max = 0;
   while (right > left) {
     const hLeft = heights[left];
     const hRight = heights[right];
-    maxArea = Math.max(maxArea, Math.min(hLeft, hRight) * (right - left));
+    max = Math.max(max, Math.min(hLeft, hRight) * (right - left));
     if (hLeft > hRight) {
       right--;
     } else {
       left++;
     }
   }
-  return maxArea;
+  return max;
 };

@@ -29,13 +29,9 @@
  *
  *
  */
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-var twoSum = function(nums, target) {
-  const numMap = new Map();
+
+const twoSum = function(nums: number[], target: number) {
+  const numMap = new Map<number, number>();
 
   for (let index1 = 0; index1 < nums.length; index1++) {
     numMap.set(nums[index1], index1);
@@ -49,10 +45,10 @@ var twoSum = function(nums, target) {
     }
   }
 
-  throw new RangeError(`can't find`)
+  throw new RangeError(`can't find`);
 };
 
-/** 
+/**
  * target = num1 + num2
  * 使用 num2 作为 map 的 key, num2 的 index 作为 map 的 value
  * 当 target - num1 是一个 map 的 key 时

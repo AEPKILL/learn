@@ -85,25 +85,20 @@
 // 不使用缓存大概 200ms+
 // 使用缓存大概 80 - 100ms
 
-/**
- * @param {string} s
- * @param {string} p
- * @return {boolean}
- */
-var isMatch = function(s, p) {
+const isMatch = function(s: string, p: string) {
   return isMatchCore(s, p, 0, 0, new Map());
 };
 function isMatchCore(
-  /** @type {string} */ s,
-  /** @type {string} */ p,
-  /** @type {number} */ i,
-  /** @type {number} */ j,
-  /** @type { Map<string,boolean> } */ cache
-) {
+  s: string,
+  p: string,
+  i: number,
+  j: number,
+  cache: Map<string, boolean>
+): boolean {
   const key = `${i}_${j}`;
   let matchLens = 0;
   if (cache.has(key)) {
-    return cache.get(key);
+    return cache.get(key)!;
   }
   while (j < p.length) {
     const char = s[i];
@@ -129,9 +124,8 @@ function isMatchCore(
         i++;
       }
       j += 2;
-    }
-    // 单字符匹配
-    else {
+    } else {
+      // 单字符匹配
       matchLens = commonSingleCharMatch(char, matchChar);
       if (!matchLens) {
         return setCache(cache, key, false);
@@ -145,10 +139,7 @@ function isMatchCore(
 }
 
 // 通用单字符匹配规则
-function commonSingleCharMatch(
-  /** @type {string} */ ch,
-  /** @type {string} */ matchCh
-) {
+function commonSingleCharMatch(ch: string, matchCh: string) {
   if (ch === matchCh || matchCh === '.') {
     return 1;
   }
@@ -157,13 +148,12 @@ function commonSingleCharMatch(
 
 /**
  * 设置缓存并返回当前值
- *
- * @param {Map<string , boolean>} cacheStore
- * @param {string} key
- * @param {boolean} value
- * @returns
  */
-function setCache(cacheStore, key, value) {
+function setCache(
+  cacheStore: Map<string, boolean>,
+  key: string,
+  value: boolean
+) {
   cacheStore.set(key, value);
   return value;
 }

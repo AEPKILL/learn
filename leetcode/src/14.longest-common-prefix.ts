@@ -36,11 +36,8 @@
  * All given inputs are in lowercase letters a-z.
  *
  */
-/**
- * @param {string[]} strs
- * @return {string}
- */
-var longestCommonPrefix = function(strs) {
+
+const longestCommonPrefix = function(strs: string[]): string {
   let commonPrefix = '';
   let index = 0;
   if (strs.length === 0) {

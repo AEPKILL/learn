@@ -1,0 +1,20 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "[AEPKILL profile homepage](https://leetcode.com/aepkill/)",
+  "scripts": {
+    "start": "ts-node ./build/main.ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chokidar": "^1.7.5",
+    "@types/fs-extra": "^5.0.5",
+    "chokidar": "^2.1.2",
+    "fs-extra": "^7.0.1",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3"
+  }
+}

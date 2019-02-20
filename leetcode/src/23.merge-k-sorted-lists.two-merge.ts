@@ -27,28 +27,17 @@
  *
  *
  */
-/// <reference path="./utils/list-node.d.ts" />
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- *
- * @param {ListNode<number>[]} lists
- * @return {ListNode<number>}
- */
-var mergeKLists = function(lists) {
+
+mountToGlobal('mergeKLists', function(
+  lists: Array<NListNode | null>
+): NListNode | null {
   // for testcase '[]'
   if (!lists.length) {
     return null;
   }
   // 合并的时候两两合并，防止一个 list 越来越长导致
   while (lists.length > 1) {
-    /** @type { ListNode<number>[] } */
-    const merged = [];
+    const merged: Array<NListNode | null> = [];
     const len = lists.length;
     for (let i = 0; i < len - 1; i += 2) {
       const l1 = lists[i];
@@ -62,16 +51,9 @@ var mergeKLists = function(lists) {
     lists = merged;
   }
   return lists[0];
-};
+});
 
-/**
- * merge two sorted list
- *
- * @param {ListNode<number>} l1
- * @param {ListNode<number>} l2
- * @returns {ListNode<number>}
- */
-function merge(l1, l2) {
+function merge(l1: NListNode | null, l2: NListNode | null) {
   const result = new ListNode(0);
   let head = result;
   while (l1 && l2) {
@@ -102,3 +84,5 @@ function merge(l1, l2) {
 
   return result.next;
 }
+
+// include(./utils/mount-to-global.ts)

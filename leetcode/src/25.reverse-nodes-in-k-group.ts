@@ -38,7 +38,6 @@
  *
  *
  */
-/// <reference path="./utils/list-node.d.ts" />
 // Definition for singly-linked list.
 
 /**
@@ -48,12 +47,7 @@
  * }
  */
 
-/**
- * @param {ListNode<number>} list
- * @param {number} k
- * @return {ListNode<number>}
- */
-var reverseKGroup = function(list, k) {
+const reverseKGroup = function(list: NListNode, k: number) {
   if (k < 2) {
     return list;
   }
@@ -64,9 +58,9 @@ var reverseKGroup = function(list, k) {
   const cache = new Array(k);
   const result = new ListNode(0);
   // head result
-  let headR = result;
+  let headR: NListNode = result;
   // head source
-  let headS = list;
+  let headS: Nullable<NListNode> = list;
   let j = k;
 
   while (headS) {
@@ -84,7 +78,7 @@ var reverseKGroup = function(list, k) {
     // 执行反转
     for (let i = k - 1; i >= 0; i--) {
       headR.next = cache[i];
-      headR = headR.next;
+      headR = headR.next!;
     }
     // 最后一个节点的 next 应该设置为 null
     // 防止循环链表
@@ -94,5 +88,6 @@ var reverseKGroup = function(list, k) {
   if (j > 0) {
     headR.next = cache[0];
   }
+
   return result.next;
 };

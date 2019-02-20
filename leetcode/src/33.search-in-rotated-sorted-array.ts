@@ -37,12 +37,8 @@
  * Output: -1
  *
  */
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number}
- */
-var search = function(nums, target) {
+
+const search = function(nums: number[], target: number) {
   if (nums.length === 0) {
     return -1;
   }
@@ -63,17 +59,16 @@ var search = function(nums, target) {
       break;
     }
 
-    // 右边是升序
     if (isDescSorted(nums, mid, right)) {
+      // 右边是升序
       // 包含在右边
       if (isBetween(target, nums, mid, right)) {
         left = mid + 1;
       } else {
         right = mid - 1;
       }
-    }
-    // 左边是升序
-    else {
+    } else {
+      // 左边是升序
       // 包含在左边
       if (isBetween(target, nums, left, mid)) {
         right = mid - 1;
@@ -88,12 +83,12 @@ var search = function(nums, target) {
 /**
  * 判断一侧是否是升序
  *
- * @param {number} nums
+ * @param {number[]} nums
  * @param {number} left
  * @param {number} right
  * @return {boolean}
  */
-function isDescSorted(nums, left, right) {
+function isDescSorted(nums: number[], left: number, right: number) {
   return nums[right] >= nums[left];
 }
 
@@ -105,7 +100,12 @@ function isDescSorted(nums, left, right) {
  * @param {number} left
  * @param {number} right
  */
-function isBetween(target, nums, left, right) {
+function isBetween(
+  target: number,
+  nums: number[],
+  left: number,
+  right: number
+) {
   return nums[left] <= target && nums[right] >= target;
 }
 

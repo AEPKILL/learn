@@ -38,27 +38,24 @@
  *
  */
 
-/** 归并  O((M+N) / 2)*/
-
 /**
- * @param {number[]} nums1
- * @param {number[]} nums2
- * @return {number}
- *
+ * 归并  O((M+N) / 2)
  * 用空间换时间 140 - 144ms
  */
-var findMedianSortedArrays = function(nums1, nums2) {
+
+const findMedianSortedArrays = function(nums1: number[], nums2: number[]) {
   const lenN1 = nums1.length;
   const lenN2 = nums2.length;
   const median = Math.ceil((lenN1 + lenN2 + 1) / 2);
   const isOddLen = (lenN1 + lenN2) % 2 === 0;
-  const result = new Array(median);
+  const result = new Array<number>(median);
 
   let i = 0; // point for nums1
   let j = 0; // point for nums2
 
   for (let k = 0; k < median; k++) {
     if (i < lenN1 && j < lenN2) {
+      // tslint:disable-next-line:prefer-conditional-expression
       if (nums1[i] < nums2[j]) {
         result[i + j] = nums1[i++];
       } else {
