@@ -44,6 +44,7 @@
     "no-debugger": true,
     "no-duplicate-variable": true,
     "no-empty": true,
+    "no-namespace": false,
     "no-eval": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": false,
