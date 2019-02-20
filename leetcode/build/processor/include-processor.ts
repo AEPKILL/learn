@@ -16,8 +16,12 @@ export default function includeProcessor(pack: FilePack) {
     const i = arr.index;
     result += content.substring(index, i);
     if (existsSync(includeRealPath)) {
-      const includeContent = readFileSync(includeRealPath, { encoding: 'utf-8' });
+      const includeContent = readFileSync(includeRealPath, {
+        encoding: 'utf-8'
+      });
       result += `\n${includeContent}\n`;
+    } else {
+      console.error(`${pack.path} include: ${includeRealPath} dont exist!`);
     }
     index = i + arr[0].length;
   }
