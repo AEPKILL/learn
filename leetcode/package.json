@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "[AEPKILL profile homepage](https://leetcode.com/aepkill/)",
   "scripts": {
-    "start": "ts-node ./build/main.ts",
-    "test": "jest"
+    "watch": "ts-node ./build/main.ts"
   },
   "keywords": [],
   "author": "",
