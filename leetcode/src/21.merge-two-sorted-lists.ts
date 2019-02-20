@@ -65,5 +65,5 @@ namespace merge_two_lists {
   };
 
   mountToGlobal('mergeTwoLists', mergeTwoLists);
-  // include(./utils/m.ts)
+  // include(./utils/mount-to-global.ts)
 }
