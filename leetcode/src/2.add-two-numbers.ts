@@ -27,45 +27,49 @@
  *
  *
  */
+namespace $2_add_tow_numbers {
+  export const addTwoNumbers = function(
+    l1: Nullable<ListNode<number>>,
+    l2: Nullable<ListNode<number>>
+  ) {
+    if (l1 === null || l2 === null) {
+      return null;
+    }
+    if (l1 === null) {
+      return l2;
+    }
+    if (l2 === null) {
+      return l1;
+    }
+    const result = new ListNode(0);
+    // 当前处理的节点
+    let head = result;
+    while (true) {
+      if (l1) {
+        head.val += l1.val;
+        l1 = l1.next;
+      }
+      if (l2) {
+        head.val += l2.val;
+        l2 = l2.next;
+      }
+      if (head.val >= 10) {
+        // 十位
+        const tenBits = (head.val / 10) >> 0;
+        // 个位
+        const bits = head.val % 10;
+        head.val = bits;
+        head = head.next = new ListNode(tenBits);
+      } else if (l1 || l2) {
+        head = head.next = new ListNode(0);
+      } else {
+        break;
+      }
+    }
 
-const addTwoNumbers = function(
-  l1: Nullable<ListNode<number>>,
-  l2: Nullable<ListNode<number>>
-) {
-  if (l1 === null || l2 === null) {
-    return null;
-  }
-  if (l1 === null) {
-    return l2;
-  }
-  if (l2 === null) {
-    return l1;
-  }
-  const result = new ListNode(0);
-  // 当前处理的节点
-  let head = result;
-  while (true) {
-    if (l1) {
-      head.val += l1.val;
-      l1 = l1.next;
-    }
-    if (l2) {
-      head.val += l2.val;
-      l2 = l2.next;
-    }
-    if (head.val >= 10) {
-      // 十位
-      const tenBits = (head.val / 10) >> 0;
-      // 个位
-      const bits = head.val % 10;
-      head.val = bits;
-      head = head.next = new ListNode(tenBits);
-    } else if (l1 || l2) {
-      head = head.next = new ListNode(0);
-    } else {
-      break;
-    }
-  }
+    return result;
+  };
+}
 
-  return result;
-};
+mountNsToGlobal($2_add_tow_numbers);
+// include (./utils/mount-to-global.ts)

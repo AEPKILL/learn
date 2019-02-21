@@ -59,21 +59,22 @@
  * }
  *
  */
-/**
- * @param {number[]} nums
- * @return {number}
- */
 
-const removeDuplicates = function(nums: number[]) {
-  if (nums.length == 0) {
-    return 0;
-  }
-  let j = 0;
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[j] !== nums[i]) {
-      j++;
-      nums[j] = nums[i];
+namespace $26_remove_duplicated_from_sorted_array {
+  export const removeDuplicates = function(nums: number[]) {
+    if (nums.length == 0) {
+      return 0;
     }
-  }
-  return j + 1;
-};
+    let j = 0;
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[j] !== nums[i]) {
+        j++;
+        nums[j] = nums[i];
+      }
+    }
+    return j + 1;
+  };
+}
+
+mountNsToGlobal($26_remove_duplicated_from_sorted_array);
+// include (./utils/mount-to-global.ts)

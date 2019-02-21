@@ -29,24 +29,27 @@
  *
  *
  */
+namespace $1_two_sum {
+  export const twoSum = function(nums: number[], target: number) {
+    const numMap = new Map<number, number>();
 
-const twoSum = function(nums: number[], target: number) {
-  const numMap = new Map<number, number>();
-
-  for (let index1 = 0; index1 < nums.length; index1++) {
-    numMap.set(nums[index1], index1);
-  }
-
-  for (let index1 = 0; index1 < nums.length; index1++) {
-    const num1 = nums[index1];
-    const index2 = numMap.get(target - num1); // index2
-    if (index2 !== undefined && index1 !== index2) {
-      return [index1, index2];
+    for (let index1 = 0; index1 < nums.length; index1++) {
+      numMap.set(nums[index1], index1);
     }
-  }
 
-  throw new RangeError(`can't find`);
-};
+    for (let index1 = 0; index1 < nums.length; index1++) {
+      const num1 = nums[index1];
+      const index2 = numMap.get(target - num1); // index2
+      if (index2 !== undefined && index1 !== index2) {
+        return [index1, index2];
+      }
+    }
+
+    throw new RangeError(`can't find`);
+  };
+}
+
+mountNsToGlobal($1_two_sum);
 
 /**
  * target = num1 + num2
@@ -55,3 +58,5 @@ const twoSum = function(nums: number[], target: number) {
  * 如果 target - num1 也在这个 map 中
  * 那么直接返回这两个数的 index 即可
  */
+
+// include(./utils/mount-to-global.ts)

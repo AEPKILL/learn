@@ -38,75 +38,78 @@
  *
  */
 
-const search = function(nums: number[], target: number) {
-  if (nums.length === 0) {
+namespace $33_search_in_rotated_sorted_array {
+  export const search = function(nums: number[], target: number) {
+    if (nums.length === 0) {
+      return -1;
+    }
+    const maxRight = nums.length - 1;
+
+    let left = 0;
+    let right = maxRight;
+
+    while (true) {
+      const mid = Math.ceil((left + right) / 2);
+      const midValue = nums[mid];
+      if (midValue === target) {
+        return mid;
+      }
+
+      // 搜索完成没有找到
+      if (left >= right) {
+        break;
+      }
+
+      if (isDescSorted(nums, mid, right)) {
+        // 右边是升序
+        // 包含在右边
+        if (isBetween(target, nums, mid, right)) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
+      } else {
+        // 左边是升序
+        // 包含在左边
+        if (isBetween(target, nums, left, mid)) {
+          right = mid - 1;
+        } else {
+          left = mid + 1;
+        }
+      }
+    }
     return -1;
+  };
+
+  /**
+   * 判断一侧是否是升序
+   *
+   * @param {number[]} nums
+   * @param {number} left
+   * @param {number} right
+   * @return {boolean}
+   */
+  function isDescSorted(nums: number[], left: number, right: number) {
+    return nums[right] >= nums[left];
   }
-  const maxRight = nums.length - 1;
 
-  let left = 0;
-  let right = maxRight;
-
-  while (true) {
-    const mid = Math.ceil((left + right) / 2);
-    const midValue = nums[mid];
-    if (midValue === target) {
-      return mid;
-    }
-
-    // 搜索完成没有找到
-    if (left >= right) {
-      break;
-    }
-
-    if (isDescSorted(nums, mid, right)) {
-      // 右边是升序
-      // 包含在右边
-      if (isBetween(target, nums, mid, right)) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
-      }
-    } else {
-      // 左边是升序
-      // 包含在左边
-      if (isBetween(target, nums, left, mid)) {
-        right = mid - 1;
-      } else {
-        left = mid + 1;
-      }
-    }
+  /**
+   * 判断数字是否在范围中
+   *
+   * @param {number} target
+   * @param {number[]} nums
+   * @param {number} left
+   * @param {number} right
+   */
+  function isBetween(
+    target: number,
+    nums: number[],
+    left: number,
+    right: number
+  ) {
+    return nums[left] <= target && nums[right] >= target;
   }
-  return -1;
-};
-
-/**
- * 判断一侧是否是升序
- *
- * @param {number[]} nums
- * @param {number} left
- * @param {number} right
- * @return {boolean}
- */
-function isDescSorted(nums: number[], left: number, right: number) {
-  return nums[right] >= nums[left];
 }
 
-/**
- * 判断数字是否在范围中
- *
- * @param {number} target
- * @param {number[]} nums
- * @param {number} left
- * @param {number} right
- */
-function isBetween(
-  target: number,
-  nums: number[],
-  left: number,
-  right: number
-) {
-  return nums[left] <= target && nums[right] >= target;
-}
-
-console.log(search([3, 5, 1], 3));
+mountNsToGlobal($33_search_in_rotated_sorted_array);
+// include (./utils/mount-to-global.ts)

@@ -78,29 +78,34 @@
  *
  */
 
-const romanToInt = function(s: string): number {
-  const symbolMap: { [index: string]: number } = {
-    I: 1,
-    V: 5,
-    X: 10,
-    L: 50,
-    C: 100,
-    D: 500,
-    M: 1000
-  };
-  let result = 0;
+namespace $13_roman_to_integer {
+  export const romanToInt = function(s: string): number {
+    const symbolMap: { [index: string]: number } = {
+      I: 1,
+      V: 5,
+      X: 10,
+      L: 50,
+      C: 100,
+      D: 500,
+      M: 1000
+    };
+    let result = 0;
 
-  for (let i = 0; i < s.length; i++) {
-    const value = symbolMap[s[i]];
-    if (i + 1 < s.length) {
-      const nextValue = symbolMap[s[i + 1]];
-      if (value < nextValue) {
-        result -= value;
-        continue;
+    for (let i = 0; i < s.length; i++) {
+      const value = symbolMap[s[i]];
+      if (i + 1 < s.length) {
+        const nextValue = symbolMap[s[i + 1]];
+        if (value < nextValue) {
+          result -= value;
+          continue;
+        }
       }
+      result += value;
     }
-    result += value;
-  }
 
-  return result;
-};
+    return result;
+  };
+}
+
+mountNsToGlobal($13_roman_to_integer);
+// include (./utils/mount-to-global.ts)

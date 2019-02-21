@@ -28,42 +28,10 @@
  *     this.next = null;
  * }
  */
-namespace merge_two_lists {
-  const mergeTwoLists = function(
-    l1: Nullable<NListNode>,
-    l2: Nullable<NListNode>
-  ): Nullable<NListNode> {
-    const result = new ListNode(0);
-    let head = result;
-    while (l1 && l2) {
-      if (l1.val < l2.val) {
-        head.next = l1;
-        l1 = l1.next;
-      } else {
-        head.next = l2;
-        l2 = l2.next;
-      }
-      head = head.next;
-    }
-
-    /**
-     * 因为是从小到大合并
-     * 比如 [1,2,3,5] merge [4,6,7]
-     * 肯定会先消耗掉所有包含较小元素的链表
-     * 如果 l1 l2 不同时为空
-     * 那么 head 肯定不为空
-     */
-
-    if (l1) {
-      head.next = l1;
-    }
-    if (l2) {
-      head.next = l2;
-    }
-
-    return result.next;
-  };
-
-  mountToGlobal('mergeTwoLists', mergeTwoLists);
-  // include(./utils/mount-to-global.ts)
+namespace $21_merge_two_lists {
+  export const mergeTwoLists = mergeSortedList;
+  // include(./utils/merge-sorted-list.ts)
 }
+
+mountNsToGlobal($21_merge_two_lists);
+// include (./utils/mount-to-global.ts)

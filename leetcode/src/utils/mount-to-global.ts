@@ -10,4 +10,10 @@ function mountToGlobal(this: any, name: string, val: any) {
   }
 }
 
+function mountNsToGlobal(this: any, ns: any) {
+  for (const key of Object.keys(ns)) {
+    mountToGlobal(key, ns[key]);
+  }
+}
+
 // tslint:enable:no-any

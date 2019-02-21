@@ -38,42 +38,46 @@
  *
  */
 
-/**
- * 归并  O((M+N) / 2)
- * 用空间换时间 140 - 144ms
- */
+namespace $4_find_median_sorted_arrays {
+  /**
+   * 归并  O((M+N) / 2)
+   * 用空间换时间 140 - 144ms
+   */
+  export const findMedianSortedArrays = function(
+    nums1: number[],
+    nums2: number[]
+  ) {
+    const lenN1 = nums1.length;
+    const lenN2 = nums2.length;
+    const median = Math.ceil((lenN1 + lenN2 + 1) / 2);
+    const isOddLen = (lenN1 + lenN2) % 2 === 0;
+    const result = new Array<number>(median);
 
-const findMedianSortedArrays = function(nums1: number[], nums2: number[]) {
-  const lenN1 = nums1.length;
-  const lenN2 = nums2.length;
-  const median = Math.ceil((lenN1 + lenN2 + 1) / 2);
-  const isOddLen = (lenN1 + lenN2) % 2 === 0;
-  const result = new Array<number>(median);
+    let i = 0; // point for nums1
+    let j = 0; // point for nums2
 
-  let i = 0; // point for nums1
-  let j = 0; // point for nums2
-
-  for (let k = 0; k < median; k++) {
-    if (i < lenN1 && j < lenN2) {
-      // tslint:disable-next-line:prefer-conditional-expression
-      if (nums1[i] < nums2[j]) {
+    for (let k = 0; k < median; k++) {
+      if (i < lenN1 && j < lenN2) {
+        // tslint:disable-next-line:prefer-conditional-expression
+        if (nums1[i] < nums2[j]) {
+          result[i + j] = nums1[i++];
+        } else {
+          result[i + j] = nums2[j++];
+        }
+      } else if (i < lenN1) {
         result[i + j] = nums1[i++];
-      } else {
+      } else if (j < lenN2) {
         result[i + j] = nums2[j++];
       }
-    } else if (i < lenN1) {
-      result[i + j] = nums1[i++];
-    } else if (j < lenN2) {
-      result[i + j] = nums2[j++];
     }
-  }
 
-  if (isOddLen) {
-    return (result[median - 1] + result[median - 2]) / 2;
-  } else {
-    return result[median - 1];
-  }
-};
+    if (isOddLen) {
+      return (result[median - 1] + result[median - 2]) / 2;
+    } else {
+      return result[median - 1];
+    }
+  };
+}
 
 // /**
 //  * @param {number[]} nums1
@@ -117,3 +121,6 @@ const findMedianSortedArrays = function(nums1: number[], nums2: number[]) {
 //   nums[0] = nums[1];
 //   nums[1] = value;
 // }
+
+mountNsToGlobal($4_find_median_sorted_arrays);
+// include (./utils/mount-to-global.ts)

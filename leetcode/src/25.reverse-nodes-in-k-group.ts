@@ -47,47 +47,52 @@
  * }
  */
 
-const reverseKGroup = function(list: NListNode, k: number) {
-  if (k < 2) {
-    return list;
-  }
-  if (!list) {
-    return list;
-  }
-  /** @type { Array<ListNode<number>> } */
-  const cache = new Array(k);
-  const result = new ListNode(0);
-  // head result
-  let headR: NListNode = result;
-  // head source
-  let headS: Nullable<NListNode> = list;
-  let j = k;
-
-  while (headS) {
-    j = k;
-    // 检查是否可以反转
-    while (headS && j) {
-      cache[k - j] = headS;
-      headS = headS.next;
-      j--;
+namespace $25_reverse_nodes_in_k_group {
+  export const reverseKGroup = function(list: NListNode, k: number) {
+    if (k < 2) {
+      return list;
     }
-    // 不需要反转
+    if (!list) {
+      return list;
+    }
+    /** @type { Array<ListNode<number>> } */
+    const cache = new Array(k);
+    const result = new ListNode(0);
+    // head result
+    let headR: NListNode = result;
+    // head source
+    let headS: Nullable<NListNode> = list;
+    let j = k;
+
+    while (headS) {
+      j = k;
+      // 检查是否可以反转
+      while (headS && j) {
+        cache[k - j] = headS;
+        headS = headS.next;
+        j--;
+      }
+      // 不需要反转
+      if (j > 0) {
+        break;
+      }
+      // 执行反转
+      for (let i = k - 1; i >= 0; i--) {
+        headR.next = cache[i];
+        headR = headR.next!;
+      }
+      // 最后一个节点的 next 应该设置为 null
+      // 防止循环链表
+      headR.next = null;
+    }
+
     if (j > 0) {
-      break;
+      headR.next = cache[0];
     }
-    // 执行反转
-    for (let i = k - 1; i >= 0; i--) {
-      headR.next = cache[i];
-      headR = headR.next!;
-    }
-    // 最后一个节点的 next 应该设置为 null
-    // 防止循环链表
-    headR.next = null;
-  }
 
-  if (j > 0) {
-    headR.next = cache[0];
-  }
+    return result.next;
+  };
+}
 
-  return result.next;
-};
+mountNsToGlobal($25_reverse_nodes_in_k_group);
+// include (./utils/mount-to-global.ts)

@@ -63,13 +63,13 @@
  * @param {string} s
  * @return {boolean}
  */
-namespace isValid_20 {
+namespace $20_is_valid {
   const symbolMap = new Map<string, string>([
     ['{', '}'],
     ['(', ')'],
     ['[', ']']
   ]);
-  const isValid = function(s: string): boolean {
+  export const isValid = function(s: string): boolean {
     const stack = new Stack<string>();
     for (const char of s) {
       // 开始符号
@@ -84,8 +84,8 @@ namespace isValid_20 {
     }
     return stack.empty();
   };
-
-  mountToGlobal('isValid', isValid);
   // include (./utils/stack.ts)
-  // include (./utils/mount-to-global.ts)
 }
+
+mountNsToGlobal($20_is_valid);
+// include (./utils/mount-to-global.ts)

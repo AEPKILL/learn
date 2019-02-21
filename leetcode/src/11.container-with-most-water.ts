@@ -37,19 +37,24 @@
  *
  */
 
-const maxArea = function(heights: number[]) {
-  let left = 0;
-  let right = heights.length - 1;
-  let max = 0;
-  while (right > left) {
-    const hLeft = heights[left];
-    const hRight = heights[right];
-    max = Math.max(max, Math.min(hLeft, hRight) * (right - left));
-    if (hLeft > hRight) {
-      right--;
-    } else {
-      left++;
+namespace $11_container_with_most_water {
+  export const maxArea = function(heights: number[]) {
+    let left = 0;
+    let right = heights.length - 1;
+    let max = 0;
+    while (right > left) {
+      const hLeft = heights[left];
+      const hRight = heights[right];
+      max = Math.max(max, Math.min(hLeft, hRight) * (right - left));
+      if (hLeft > hRight) {
+        right--;
+      } else {
+        left++;
+      }
     }
-  }
-  return max;
-};
+    return max;
+  };
+}
+
+mountNsToGlobal($11_container_with_most_water);
+// include (./utils/mount-to-global.ts)

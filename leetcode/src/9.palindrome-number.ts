@@ -45,24 +45,29 @@
  *
  */
 
-const isPalindrome = function(x: number) {
-  if (x < 0) {
-    return false;
+namespace $9_is_palindrome {
+  export const isPalindrome = function(x: number) {
+    if (x < 0) {
+      return false;
+    }
+    return x === reverseNumber(x);
+  };
+
+  // ref: [7.reverse-integer.ts](https://leetcode.com/problems/reverse-integer/description/)
+  function reverseNumber(x: number) {
+    let num = x;
+    let result = 0;
+
+    while (num) {
+      // 余数
+      const remainder = num % 10;
+      num = (num / 10) >> 0;
+      result = result * 10 + remainder;
+    }
+
+    return result;
   }
-  return x === reverseNumber(x);
-};
-
-// ref: [7.reverse-integer.ts](https://leetcode.com/problems/reverse-integer/description/)
-function reverseNumber(x: number) {
-  let num = x;
-  let result = 0;
-
-  while (num) {
-    // 余数
-    const remainder = num % 10;
-    num = (num / 10) >> 0;
-    result = result * 10 + remainder;
-  }
-
-  return result;
 }
+
+mountNsToGlobal($9_is_palindrome);
+// include (./utils/mount-to-global.ts)

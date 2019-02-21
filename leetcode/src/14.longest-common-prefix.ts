@@ -37,28 +37,33 @@
  *
  */
 
-const longestCommonPrefix = function(strs: string[]): string {
-  let commonPrefix = '';
-  let index = 0;
-  if (strs.length === 0) {
-    return commonPrefix;
-  }
-  if (strs.length === 1) {
-    return strs[0];
-  }
-  const orign = strs[0];
-  while (true) {
-    for (let i = 1; i < strs.length; i++) {
-      const str = strs[i];
-      const char = str[index];
-      if (index >= str.length) {
-        return commonPrefix;
-      }
-      if (char !== orign[index]) {
-        return commonPrefix;
-      }
+namespace $14_longest_common_prefix {
+  export const longestCommonPrefix = function(strs: string[]): string {
+    let commonPrefix = '';
+    let index = 0;
+    if (strs.length === 0) {
+      return commonPrefix;
     }
-    commonPrefix += orign[index];
-    index++;
-  }
-};
+    if (strs.length === 1) {
+      return strs[0];
+    }
+    const orign = strs[0];
+    while (true) {
+      for (let i = 1; i < strs.length; i++) {
+        const str = strs[i];
+        const char = str[index];
+        if (index >= str.length) {
+          return commonPrefix;
+        }
+        if (char !== orign[index]) {
+          return commonPrefix;
+        }
+      }
+      commonPrefix += orign[index];
+      index++;
+    }
+  };
+}
+
+mountNsToGlobal($14_longest_common_prefix);
+// include (./utils/mount-to-global.ts)

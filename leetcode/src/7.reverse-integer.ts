@@ -42,26 +42,31 @@
  *
  */
 
-// 31Bit, because 32bit number has a one flag bit.
-const MAX_SAFE_NUMBER = 0b1111111111111111111111111111111; // 0x7fffffff
-const reverse = function(x: number) {
-  let num = x;
-  let result = 0;
+namespace $7_reverse_integer {
+  // 31Bit, because 32bit number has a one flag bit.
+  const MAX_SAFE_NUMBER = 0b1111111111111111111111111111111; // 0x7fffffff
+  const reverse = function(x: number) {
+    let num = x;
+    let result = 0;
 
-  while (num) {
-    // 余数
-    const remainder = num % 10;
-    num = (num / 10) >> 0;
-    result = result * 10 + remainder;
-  }
+    while (num) {
+      // 余数
+      const remainder = num % 10;
+      num = (num / 10) >> 0;
+      result = result * 10 + remainder;
+    }
 
-  if (result > MAX_SAFE_NUMBER) {
-    return 0;
-  }
+    if (result > MAX_SAFE_NUMBER) {
+      return 0;
+    }
 
-  if (result < -MAX_SAFE_NUMBER) {
-    return 0;
-  }
+    if (result < -MAX_SAFE_NUMBER) {
+      return 0;
+    }
 
-  return result;
-};
+    return result;
+  };
+}
+
+mountNsToGlobal($7_reverse_integer);
+// include (./utils/mount-to-global.ts)

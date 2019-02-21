@@ -48,27 +48,29 @@
  *
  */
 
-/**
- * 100ms
- */
-const lengthOfLongestSubstring = function(s: string) {
-  const charLastIndexs = new Array(128).fill(-1);
-  let max = 0;
-  let left = 0;
+namespace $3_length_of_longest_substring {
+  /**
+   * 100ms
+   */
+  export const lengthOfLongestSubstring = function(s: string) {
+    const charLastIndexs = new Array(128).fill(-1);
+    let max = 0;
+    let left = 0;
 
-  for (let i = 0; i < s.length; i++) {
-    const ch = s[i];
-    const chCode = ch.charCodeAt(0);
-    const chLastIndex = charLastIndexs[chCode];
-    if (left <= chLastIndex) {
-      left = chLastIndex + 1;
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      const chCode = ch.charCodeAt(0);
+      const chLastIndex = charLastIndexs[chCode];
+      if (left <= chLastIndex) {
+        left = chLastIndex + 1;
+      }
+      charLastIndexs[chCode] = i;
+      max = Math.max(max, i - left + 1);
     }
-    charLastIndexs[chCode] = i;
-    max = Math.max(max, i - left + 1);
-  }
 
-  return max;
-};
+    return max;
+  };
+}
 
 // console.log(lengthOfLongestSubstring('hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789hijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'));
 
@@ -100,3 +102,6 @@ const lengthOfLongestSubstring = function(s: string) {
 //   }
 //   return result;
 // };
+
+mountNsToGlobal($3_length_of_longest_substring);
+// include (./utils/mount-to-global.ts)
