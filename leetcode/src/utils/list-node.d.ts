@@ -1,5 +1,3 @@
-/// <reference path="./type.d.ts" />
-
 declare class ListNode<T> {
   public next: Nullable<ListNode<T>>;
   public val: T;
