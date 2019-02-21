@@ -5,8 +5,13 @@ import { parse, resolve } from 'path';
 import includeProcessor from '../processor/include-processor';
 import typescriptProcessor from '../processor/typescript-processor';
 
+import addCodeUrl from '../processor/add-code-url-processor';
 import FilePack from './file-pack';
 import getEntry from './get-entry';
+
+const addCodeUrlProcessor = addCodeUrl(
+  'https://github.com/AEPKILL/learn/blob/master/leetcode/src/'
+);
 
 export default class Builder {
   readonly outdir: string;
@@ -41,6 +46,7 @@ export default class Builder {
     const pack = FilePack.read(path);
     includeProcessor(pack);
     typescriptProcessor(pack, this);
+    addCodeUrlProcessor(pack, this);
     writeFileSync(
       resolve(this.outdir, parse(pack.path).name + '.js'),
       pack.content
