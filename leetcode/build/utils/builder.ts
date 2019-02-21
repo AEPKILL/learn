@@ -12,6 +12,7 @@ export default class Builder {
   readonly outdir: string;
   constructor(readonly root: string) {
     this.outdir = resolve(root, '../.leetcode');
+    ensureDirSync(this.outdir);
   }
   build() {
     const entry = getEntry(this.root);
@@ -40,7 +41,6 @@ export default class Builder {
     const pack = FilePack.read(path);
     includeProcessor(pack);
     typescriptProcessor(pack, this);
-    ensureDirSync(this.outdir);
     writeFileSync(
       resolve(this.outdir, parse(pack.path).name + '.js'),
       pack.content

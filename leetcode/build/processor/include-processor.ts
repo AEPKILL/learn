@@ -19,7 +19,13 @@ export default function includeProcessor(pack: FilePack) {
       const includeContent = readFileSync(includeRealPath, {
         encoding: 'utf-8'
       });
-      result += `\n${includeContent}\n`;
+      const includePack = new FilePack(includeRealPath);
+      includePack.content = includeContent;
+      // TODO 检查循环引用
+      includeProcessor(includePack);
+      result += `\n\n\/* inject (${includePath}) By include-processor *\/\n\n${
+        includePack.content
+      }\n`;
     } else {
       console.error(`${pack.path} include: ${includeRealPath} dont exist!`);
     }
