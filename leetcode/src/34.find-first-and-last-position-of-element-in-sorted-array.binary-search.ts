@@ -39,12 +39,16 @@ namespace $34_find_first_and_last_position_of_element_in_sorted_array_binary_sea
   const isGreater = (s: number, t: number) => s > t;
   const isLess = (s: number, t: number) => s < t;
   export const searchRange = function(nums: number[], target: number) {
+    const left = binarySearch(nums, target, {
+      isGreater,
+      isLess,
+      findPosition: FIND_TARGET_INDEX.MIN
+    });
+    if (left === -1) {
+      return [-1, -1];
+    }
     return [
-      binarySearch(nums, target, {
-        isGreater,
-        isLess,
-        findPosition: FIND_TARGET_INDEX.MIN
-      }),
+      left,
       binarySearch(nums, target, {
         isGreater,
         isLess,
