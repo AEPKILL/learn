@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { parse, resolve } from 'path';
 import FilePack from '../utils/file-pack';
 
