@@ -55,60 +55,153 @@ namespace $65_valid_number {
   const isExponentSymbol = (s: string) => s === 'e';
   const enum STATE {
     INIT,
-    /** 寻找整数部分 */
-    S1,
-    /** 寻找小数部分 */
-    S2,
-    /** 寻找指数部分 */
-    S3,
+    INTEGER,
+    FLOAT,
+    EXPONENT_PM,
+    EXPONENT,
     ERROR
   }
-  const stateTransform: { [index: number]: (s: string) => STATE } = {
-    [STATE.INIT](s: string) {
-      if (isNumberSymbol(s) || isPMSymbol(s)) {
-        return STATE.S1;
+
+  const stateTransform: {
+    [index: number]: (s: StringStream, numberStruct: NumberStruct) => STATE;
+  } = {
+    [STATE.INIT](s: StringStream, numberStruct: NumberStruct) {
+      let state = STATE.ERROR;
+      if (isPMSymbol(s.current)) {
+        numberStruct.PMSymbol = {
+          value: s.current,
+          finded: true
+        };
+        s.next();
+        state = STATE.INTEGER;
+      } else if (isPointSymbol(s.current)) {
+        numberStruct.float.finded = true;
+        s.next();
+        state = STATE.FLOAT;
+      } else if (isNumberSymbol(s.current)) {
+        return STATE.INTEGER;
       }
-      return STATE.ERROR;
+      return state;
     },
-    [STATE.S1](s: string) {
-      if (isNumberSymbol(s)) {
-        return STATE.S1;
-      } else if (isPointSymbol(s)) {
-        return STATE.S2;
-      } else if (isExponentSymbol(s)) {
-        return STATE.S3;
+    [STATE.INTEGER](s: StringStream, numberStruct: NumberStruct) {
+      let state = STATE.ERROR;
+      if (isNumberSymbol(s.current)) {
+        numberStruct.integer.value += s.current;
+        numberStruct.integer.finded = true;
+        state = STATE.INTEGER;
+      } else if (isPointSymbol(s.current)) {
+        numberStruct.float.finded = true;
+        state = STATE.FLOAT;
+      } else if (isExponentSymbol(s.current)) {
+        numberStruct.exponent.finded = true;
+        state = STATE.EXPONENT_PM;
       }
-      return STATE.ERROR;
+      s.next();
+      return state;
     },
-    [STATE.S2](s: string) {
-      if (isNumberSymbol(s)) {
-        return STATE.S2;
-      } else if (isExponentSymbol(s)) {
-        return STATE.S3;
+    [STATE.FLOAT](s: StringStream, numberStruct: NumberStruct) {
+      let state = STATE.ERROR;
+      if (isNumberSymbol(s.current)) {
+        numberStruct.float.value += s.current;
+        state = STATE.FLOAT;
+        s.next();
+      } else if (isExponentSymbol(s.current)) {
+        numberStruct.exponent.finded = true;
+        state = STATE.EXPONENT_PM;
+        s.next();
       }
-      return STATE.ERROR;
+      return state;
     },
-    [STATE.S3](s: string) {
-      if (isNumberSymbol(s)) {
-        return STATE.S3;
+    [STATE.EXPONENT_PM](s: StringStream, numberStruct: NumberStruct) {
+      let state = STATE.ERROR;
+      if (isPMSymbol(s.current)) {
+        numberStruct.exponentPMSymbol = {
+          finded: true,
+          value: s.current
+        };
+        s.next();
+        state = STATE.EXPONENT;
+      } else if (isNumberSymbol(s.current)) {
+        state = STATE.EXPONENT;
+      }
+      return state;
+    },
+    [STATE.EXPONENT](s: StringStream, numberStruct: NumberStruct) {
+      if (isNumberSymbol(s.current)) {
+        numberStruct.exponent.value += s.current;
+        numberStruct.exponent.finded = true;
+        s.next();
+        return STATE.EXPONENT;
       }
       return STATE.ERROR;
     }
   };
+
   export const isNumber = function(s: string) {
+    const numberStruct: NumberStruct = {
+      PMSymbol: generateNumberStructPart(),
+      integer: generateNumberStructPart(),
+      float: generateNumberStructPart(),
+      exponentPMSymbol: generateNumberStructPart(),
+      exponent: generateNumberStructPart()
+    };
+    const content = s.trim();
+    const strem = new StringStream(s.trim());
+
+    if (content === '') {
+      return false;
+    }
+
     let state = STATE.INIT;
-    s = s.trim();
-    for (let i = 0; i < s.length; i++) {
-      const symbol = s[i];
-      state = stateTransform[state](symbol);
+    while (!strem.done) {
+      state = stateTransform[state](strem, numberStruct);
       if (state === STATE.ERROR) {
         return false;
       }
     }
-    return state !== STATE.INIT;
+    const { integer, float, exponent } = numberStruct;
+
+    // 3.  ==> ok
+    if (float.finded && float.value === '') {
+      if (!integer.finded) {
+        return false;
+      }
+    }
+
+    // 2e   ==> error
+    // e58 ==> error
+    if (exponent.finded) {
+      if (exponent.value === '') {
+        return false;
+      }
+      if (integer.value === '' && float.value === '') {
+        return false;
+      }
+    }
+
+    return true;
   };
+
+  function generateNumberStructPart(): NumberStructPart {
+    return {
+      finded: false,
+      value: ''
+    };
+  }
+  interface NumberStructPart {
+    finded: boolean;
+    value: string;
+  }
+  interface NumberStruct {
+    PMSymbol: NumberStructPart;
+    integer: NumberStructPart;
+    float: NumberStructPart;
+    exponentPMSymbol: NumberStructPart;
+    exponent: NumberStructPart;
+  }
 }
 
 mountNsToGlobal($65_valid_number);
 
 // include (./utils/mount-to-global.ts)
+// include (./utils/string-stream.ts)
