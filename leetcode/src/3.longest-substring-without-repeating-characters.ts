@@ -50,25 +50,24 @@
 
 namespace $3_length_of_longest_substring {
   /**
-   * 100ms
+   * 90ms+
    */
   export const lengthOfLongestSubstring = function(s: string) {
-    const charLastIndexs = new Array(128).fill(-1);
-    let max = 0;
-    let left = 0;
-
+    const workLastIndex = new Map<string, number>();
+    let maxLength = 0;
+    let beforeLastMaxNoRepeat = -1;
     for (let i = 0; i < s.length; i++) {
-      const ch = s[i];
-      const chCode = ch.charCodeAt(0);
-      const chLastIndex = charLastIndexs[chCode];
-      if (left <= chLastIndex) {
-        left = chLastIndex + 1;
+      const word = s[i];
+      if (workLastIndex.has(word)) {
+        beforeLastMaxNoRepeat = Math.max(
+          beforeLastMaxNoRepeat,
+          workLastIndex.get(word)!
+        );
       }
-      charLastIndexs[chCode] = i;
-      max = Math.max(max, i - left + 1);
+      workLastIndex.set(word, i);
+      maxLength = Math.max(maxLength, i - beforeLastMaxNoRepeat);
     }
-
-    return max;
+    return maxLength;
   };
 }
 
