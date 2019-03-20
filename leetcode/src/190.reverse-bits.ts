@@ -71,11 +71,12 @@ namespace $190_reverse_bits {
       // 1*32 === 4294967294 无符号
       // javascript 认为二者不相等 ...
       // 可以最后 x >>> 0 来转换一个有符号数为无符号数
-      result *= 2;
-      result += n & 1;
-      n >>>= 1;
+      // result *= 2;
+      // result += n & 1;
+      // n >>>= 1;
+      result = (result << 1) | ((n >>> i) & 1);
     }
-    return result;
+    return result >>> 0;
   };
 }
 
