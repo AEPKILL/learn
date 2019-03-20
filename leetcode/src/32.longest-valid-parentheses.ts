@@ -51,6 +51,7 @@ namespace $32_longest_valid_parentheses {
           // 栈不为空
           // i - stack.top
           // stack.top 是左 "(" 前一个字符
+          // 考虑 (()() 这种情况
           max = Math.max(max, i - stack.top!);
         }
       } else {
