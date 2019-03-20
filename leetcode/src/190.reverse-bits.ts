@@ -67,6 +67,10 @@ namespace $190_reverse_bits {
       // 根据 Javascript 位移操作符(https://www.ecma-international.org/ecma-262/5.1/#sec-11.7.1)
       // 位移操作结果是一个有符号数，例如 (1 << 31)
       // 而 Leetcode 又是根据无符号数来判定的，于是会出错
+      // 1*32 === -1 有符号
+      // 1*32 === 4294967294 无符号
+      // javascript 认为二者不相等 ...
+      // 可以最后 x >>> 0 来转换一个有符号数为无符号数
       result *= 2;
       result += n & 1;
       n >>>= 1;
