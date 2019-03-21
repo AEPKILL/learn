@@ -40,6 +40,14 @@
  * Your algorithm should run in O(n) time and uses constant extra space.
  *
  */
+
+/**
+ * 寻找第一个缺少的数字(从 1 开始)
+ * 我一开始是直接暴力搜索从 1 开始到数组的最大数值 O(n^2)
+ * 评论区发现了这个巧妙的解法:
+ * 建立一个和原数值一样长的数字，依次将数组中的每个值放入 (值 - 1) 对应的下标中
+ * 然后依次遍历这个数组，如果那个下标没有值，则该值就是第一个缺少的值
+ */
 namespace $44first_missing_positive {
   export const firstMissingPositive = function(nums: number[]) {
     const back = new Array<number>(nums.length);
