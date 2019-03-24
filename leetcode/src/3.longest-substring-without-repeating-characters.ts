@@ -48,23 +48,28 @@
  *
  */
 
+/**
+ * 利用一个"滑窗"
+ * beforeLastMaxNoRepeat -> i 中间的字符串是一个没用重复的字符的子串
+ */
 namespace $3_length_of_longest_substring {
   /**
    * 90ms+
    */
   export const lengthOfLongestSubstring = function(s: string) {
-    const workLastIndex = new Map<string, number>();
+    const wordLastIndex = new Map<string, number>();
     let maxLength = 0;
     let beforeLastMaxNoRepeat = -1;
     for (let i = 0; i < s.length; i++) {
       const word = s[i];
-      if (workLastIndex.has(word)) {
+      if (wordLastIndex.has(word)) {
         beforeLastMaxNoRepeat = Math.max(
           beforeLastMaxNoRepeat,
-          workLastIndex.get(word)!
+          wordLastIndex.get(word)!
         );
       }
-      workLastIndex.set(word, i);
+
+      wordLastIndex.set(word, i);
       maxLength = Math.max(maxLength, i - beforeLastMaxNoRepeat);
     }
     return maxLength;
