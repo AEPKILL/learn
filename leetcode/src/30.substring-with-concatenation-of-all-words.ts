@@ -74,7 +74,7 @@ namespace $30_substring_with_concatenation_of_all_words {
     for (let i = 0; i <= s.length - wordsLength; i++) {
       tempMap.clear();
       for (let j = i; j < i + wordsLength; j += wordWidth) {
-        const str = s.substr(j, j + wordWidth);
+        const str = s.substr(j, wordWidth);
         if (wordMap.has(str)) {
           tempMap.set(str, (tempMap.get(str) || 0) + 1);
         } else {
@@ -87,8 +87,8 @@ namespace $30_substring_with_concatenation_of_all_words {
     }
 
     return result;
-  };
-  // TODO "有没有更好的方式优化这个对比函数?"
+  }
+  // NOTE "有没有更好的方式优化这个对比函数?"
   function mapEqual(m1: Map<string, number>, m2: Map<string, number>) {
     if (m1.size !== m2.size) {
       return false;
