@@ -3,7 +3,7 @@
 ## 安装依赖
 
 ```shell
-npm install ts-node Typescript webpack webpack-cli @types/webpack -D
+npm install ts-node typescript webpack webpack-cli @types/webpack -D
 ```
 
 ## 编写配置文件
