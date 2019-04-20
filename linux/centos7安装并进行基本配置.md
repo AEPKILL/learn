@@ -97,4 +97,3 @@ HandleLidSwitch=lock
 ```
 systemctl restart systemd-logind
 ```
-
