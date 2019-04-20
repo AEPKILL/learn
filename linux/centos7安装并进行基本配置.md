@@ -75,3 +75,26 @@ Defaults env_reset, timestamp_timeout=x
 x 就是代表时间, 单位为分钟, 你可以设置为 10 或 30 ，表示 10 分钟或半小时.
 --------------------- 
 https://blog.csdn.net/gatieme/article/details/71056020 
+
+
+
+## 设置关闭盖子不休眠
+
+`systemd` 处理某些电源相关的 ACPI事件，可以编辑 `/etc/systemd/logind.conf`文件修改相关事件的默认行为。
+
+触发的行为可以有
+
+> `ignore`、`power off`、`reboot`、`halt`、`suspend`、`hibernate`、`hybrid-sleep`、`lock` 或 `exec`。
+
+```shell
+HandleLidSwitch=lock
+```
+
+就可以让合上盖子只注销当前用户了。
+
+注意：设置完成保存后运行下列命令才生效。
+
+```
+systemctl restart systemd-logind
+```
+
