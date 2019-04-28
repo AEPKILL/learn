@@ -10,7 +10,7 @@
 
 - `-i, --interactive=false`， 打开STDIN，用于控制台交互
 
-- `-t, --tty=false`， 分配tty设备，该可以支持终端登录，默认为false
+- `-t, --tty=false`， 分配`tty`设备，该可以支持终端登录，默认为false
 
 - `-u, --user=""`， 指定容器的用户
 
