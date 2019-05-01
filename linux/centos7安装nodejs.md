@@ -1,4 +1,4 @@
-# CentOS7 Install NodeJS
+#  CentOS7 Install NodeJS
 
 ### How to install Node.js via binary archive on Linux?
 
