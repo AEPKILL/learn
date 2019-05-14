@@ -1,6 +1,7 @@
 /**/node_modules/
 /**/dist/
 /**/.leetcode
+/**/_gsdata_/
 
 package-lock.json
 *.log
