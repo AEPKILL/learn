@@ -19,7 +19,8 @@ module.exports = {
         'learn',
         'config',
         'note',
-        'doc'
+        'doc',
+		'example'
       ]
     ]
   }
