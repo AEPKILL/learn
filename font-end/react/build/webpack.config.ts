@@ -3,7 +3,7 @@ import HtmlPlugin from 'html-webpack-plugin';
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
-const config: Configuration = {
+const config: Configuration & { devServer: any } = {
   entry: './src/main.tsx',
   resolve: {
     extensions: ['.js', '.ts', '.tsx']

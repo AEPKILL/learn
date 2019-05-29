@@ -11,7 +11,7 @@ const excludes = ['constructor', 'render'].concat(
 );
 
 // tslint:disable-next-line:no-any
-export function BindThis<T extends { new (...args: any[]): any }>(
+export function BindThis<T extends new (...args: any[]) => any>(
   Construcor: T
 ): T {
   return class extends Construcor {
@@ -19,18 +19,18 @@ export function BindThis<T extends { new (...args: any[]): any }>(
     constructor(...args: any[]) {
       super(...args);
       for (const name of Object.getOwnPropertyNames(Construcor.prototype)) {
+        const descriptor = Reflect.getOwnPropertyDescriptor(
+          Construcor.prototype,
+          name
+        )!;
         if (
-          !!Object.getOwnPropertyDescriptor(Construcor.prototype, 'name')!
-            .get &&
-          typeof Construcor.prototype[name] === 'function' &&
+          !descriptor.get &&
+          typeof descriptor.value === 'function' &&
           excludes.indexOf(name) === -1
         ) {
-          console.log(this, name);
           this[name] = this[name].bind(this);
         }
       }
     }
   };
 }
-
-console.log("xxxx");

@@ -1,6 +1,6 @@
 /**
  * 当使用 index 做 key 的时候
- * 如何 item 中包含有状态的元素，那么会导致渲染错误
+ * 如果 item 中包含有状态的元素，那么会导致渲染错误
  */
 
 import React, { useRef, useState } from 'react';
@@ -40,3 +40,5 @@ const ListRenderErrorWithNoKey: React.SFC = () => {
     </div>
   );
 };
+
+export default ListRenderErrorWithNoKey;

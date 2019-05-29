@@ -1,8 +1,8 @@
 import React from 'react';
-import FlavorFrom from './component/from/flavor-from';
+import RenderOpportunity from './components/render-opportunity';
 
 const App: React.SFC = () => {
-  return <FlavorFrom />;
+  return <RenderOpportunity />;
 };
 
 export default App;
