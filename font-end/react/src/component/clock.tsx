@@ -7,7 +7,7 @@ interface ClockState {
 }
 
 class Clock extends React.Component<ClockProps, ClockState> {
-  private timer: number;
+  private timer!: number;
   constructor(props: ClockProps) {
     super(props);
     this.state = {
