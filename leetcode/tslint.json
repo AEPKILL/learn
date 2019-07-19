@@ -53,6 +53,7 @@
       "check-else",
       "check-whitespace"
     ],
+    "no-namespace": false,
     "quotemark": [true, "single"],
     "radix": true,
     "semicolon": [true, "always"],
