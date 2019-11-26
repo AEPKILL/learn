@@ -3,7 +3,7 @@ import * as HtmlPlugin from 'html-webpack-plugin';
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
-const config: Configuration = {
+const config = {
   entry: {
     main: './src/main.ts'
   },
@@ -42,6 +42,6 @@ const config: Configuration = {
       }
     ])
   ]
-};
+} as Configuration;
 
 export default config;
