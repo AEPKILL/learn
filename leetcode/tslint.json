@@ -17,6 +17,7 @@
     "label-position": true,
     "max-line-length": [false, 150],
     "no-submodule-imports": false,
+    "only-arrow-functions": false,
     "member-ordering": [
       true,
       {
@@ -44,8 +45,8 @@
     "no-string-literal": true,
     "no-switch-case-fall-through": false,
     "no-trailing-whitespace": false,
-    "no-unused-variable": [true],
-    "no-use-before-declare": true,
+    "no-unused-variable": [false],
+    "no-use-before-declare": false,
     "one-line": [
       true,
       "check-open-brace",
