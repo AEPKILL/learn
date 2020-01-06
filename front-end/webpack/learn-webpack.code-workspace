@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "root"
+    },
+    {
+      "path": "notes"
+    },
+    {
+      "path": "examples\\use-typescript-config-webpack"
+    }
+  ],
+  "settings": {}
+}
