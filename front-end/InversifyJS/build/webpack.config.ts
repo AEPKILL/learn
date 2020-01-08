@@ -4,9 +4,9 @@ import { resolve } from 'path';
 import { Configuration } from 'webpack';
 
 const config: Configuration = {
-  entry: './src/main.ts',
+  entry: './src/main.tsx',
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.ts', '.tsx']
   },
   devtool: 'inline-source-map',
   mode: 'development',
@@ -14,10 +14,11 @@ const config: Configuration = {
     path: resolve(__dirname, '../dist'),
     filename: '[name].js'
   },
+
   module: {
     rules: [
       {
-        test: /.ts$/,
+        test: /.tsx?$/,
         loader: 'ts-loader'
       }
     ]
