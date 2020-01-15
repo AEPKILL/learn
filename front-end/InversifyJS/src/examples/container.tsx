@@ -1,4 +1,4 @@
-import { Container as IocContainer, injectable, inject } from 'inversify';
+import { Container as IocContainer } from 'inversify';
 import React from 'react';
 
 export const Container: React.FunctionComponent = () => {

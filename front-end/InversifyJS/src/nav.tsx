@@ -10,6 +10,9 @@ const Nav: React.FunctionComponent = () => {
       <li>
         <Link to="/inheritance">inheritance</Link>
       </li>
+      <li>
+        <Link to="/rebind">rebind</Link>
+      </li>
     </ul>
   );
 };

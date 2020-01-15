@@ -7,6 +7,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 
 import { Container } from './examples/container';
 import { Inheritance } from './examples/inheritance';
+import { Rebind } from './examples/rebind';
 import { Nav } from './nav';
 
 const customHistory = createBrowserHistory();
@@ -23,6 +24,9 @@ const App: React.FunctionComponent = () => {
         </Route>
         <Route exact path="/inheritance">
           <Inheritance />
+        </Route>
+        <Route exact path="/rebind">
+          <Rebind />
         </Route>
       </Switch>
     </Router>
