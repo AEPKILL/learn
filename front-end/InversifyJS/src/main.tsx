@@ -7,6 +7,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 
 import { Container } from './examples/container';
 import { Inheritance } from './examples/inheritance';
+import { MIddleware } from './examples/middleware';
 import { Rebind } from './examples/rebind';
 import { Nav } from './nav';
 
@@ -27,6 +28,9 @@ const App: React.FunctionComponent = () => {
         </Route>
         <Route exact path="/rebind">
           <Rebind />
+        </Route>
+        <Route exact path="/middleware">
+          <MIddleware />
         </Route>
       </Switch>
     </Router>

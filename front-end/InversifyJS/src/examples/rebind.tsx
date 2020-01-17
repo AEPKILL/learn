@@ -15,7 +15,6 @@ export const Rebind: React.FunctionComponent = () => {
       .bind(A)
       .toSelf()
       .inSingletonScope();
-
     console.log(container.get(A));
     console.log(container.get(A));
 
@@ -23,7 +22,6 @@ export const Rebind: React.FunctionComponent = () => {
       .rebind(A)
       .toSelf()
       .inSingletonScope();
-
     console.log(container.get(A));
     console.log(container.get(A));
   }, []);

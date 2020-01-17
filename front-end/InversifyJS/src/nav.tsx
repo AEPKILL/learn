@@ -13,6 +13,9 @@ const Nav: React.FunctionComponent = () => {
       <li>
         <Link to="/rebind">rebind</Link>
       </li>
+      <li>
+        <Link to="/middleware">middleware</Link>
+      </li>
     </ul>
   );
 };

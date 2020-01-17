@@ -1,4 +1,4 @@
-import { Container, injectable, inject } from 'inversify';
+import { Container, inject, injectable } from 'inversify';
 import React from 'react';
 
 export const Inheritance: React.FunctionComponent = () => {
