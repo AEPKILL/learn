@@ -18,3 +18,5 @@ package-lock.json
 
 /algorithm/**/.vs/
 /cplusplus/**/.vs/
+
+/rust/**/target/
