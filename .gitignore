@@ -1,3 +1,5 @@
+/csharp/**/obj/
+/csharp/**/bin/
 /**/.idea/
 
 /**/node_modules/

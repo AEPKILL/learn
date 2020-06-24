@@ -3,8 +3,6 @@ import * as fs from "fs";
 
 //prevent.stop.self.once.capture.native.passive
 
-const template = `
-<form  v-on:submit.native="onSubmit" v-mode.lazy.trim="cook" :id=2 v-bind="bindAll"></form>
-`;
+const template = `<span v-model.trim="xxxx" @click="xxxx=>xxxxx=yyyy" kk=1 v-bind="xxx" ref="span">{{1+2+xxx}}</span>`;
 
 fs.writeFileSync("output.js", compiler.compile(template).render);
