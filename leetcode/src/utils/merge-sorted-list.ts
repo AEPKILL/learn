@@ -1,11 +1,11 @@
 function mergeSortedList(
-  l1: Nullable<NListNode>,
-  l2: Nullable<NListNode>
-): Nullable<NListNode> {
-  const result = new ListNode(0);
+  l1: Nullable<NumberLinkNode>,
+  l2: Nullable<NumberLinkNode>
+): Nullable<NumberLinkNode> {
+  const result = new LinkNode(0);
   let head = result;
   while (l1 && l2) {
-    if (l1.val < l2.val) {
+    if (l1.value < l2.value) {
       head.next = l1;
       l1 = l1.next;
     } else {
